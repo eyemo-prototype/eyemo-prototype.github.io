@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import styles from './CutsPanel.module.css'
+import styles from './CutsPanel.module.sass'
 import { Button, Col, FormControl, InputGroup } from 'react-bootstrap'
 import { formatTime } from '../utils/format-time'
 

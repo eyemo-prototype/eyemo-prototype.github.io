@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl'
 import { observer } from 'mobx-react'
 import store from '../store'
 import ReactPlayer from 'react-player'
 import { formatTime } from '../utils/format-time'
+import { Button, Grid, TextField } from '@material-ui/core'
+import styles from './PlayerPanel.module.sass'
 
 function PlayerPanel() {
 	const ref = useRef<ReactPlayer>(null)
@@ -49,19 +46,16 @@ function PlayerPanel() {
 
 	return (
 		<>
-			<Row className='padded'>
-				<InputGroup className='mb-3'>
-					<FormControl
-						placeholder='Copy YouTube url'
-						value={store.url}
-						onChange={(e) => (store.url = e.target.value)}
-					/>
-					<InputGroup.Append>
-						<Button>Search</Button>
-					</InputGroup.Append>
-				</InputGroup>
-			</Row>
-			<Row className='padded justify-content-center'>
+			<Grid className={styles.header}>eyemo</Grid>
+			<Grid className={styles.searchLine} container direction='column' justify={'flex-end'}>
+				<TextField
+					fullWidth
+					placeholder='Copy YouTube url'
+					value={store.url}
+					onChange={(e) => (store.url = e.target.value)}
+				/>
+			</Grid>
+			<Grid className='padded'>
 				<ReactPlayer
 					ref={ref}
 					playing={playing}
@@ -78,25 +72,28 @@ function PlayerPanel() {
 						},
 					}}
 				/>
-			</Row>
-			<Row className='justify-content-center'>{formatTime(position, true)}</Row>
-			<Row>
-				<Col className='padded'>
-					<Button block onClick={startFrame}>
+			</Grid>
+			<Grid justify='center' container>
+				{formatTime(position, true)}
+			</Grid>
+			<Grid container>
+				<Grid className='padded' item lg>
+					<Button variant='contained' disableElevation fullWidth onClick={startFrame} color='primary'>
 						Start of frame
 					</Button>
-				</Col>
-				<Col className='padded'>
-					<Button block onClick={endFrame}>
+				</Grid>
+				<Grid className='padded' item lg>
+					<Button variant='contained' disableElevation onClick={endFrame} fullWidth color='primary'>
 						End of frame
 					</Button>
-				</Col>
-			</Row>
-			<Row>
-				<Col className='padded'>
+				</Grid>
+			</Grid>
+			<Grid>
+				<Grid className='padded'>
 					<Button
-						block
-						variant={'outline-info'}
+						variant='contained'
+						fullWidth
+						disableElevation
 						onClick={() => {
 							//ref.current?.seekTo(3)
 							setPlaying(!playing)
@@ -104,8 +101,8 @@ function PlayerPanel() {
 					>
 						Continue Watching
 					</Button>
-				</Col>
-			</Row>
+				</Grid>
+			</Grid>
 		</>
 	)
 }

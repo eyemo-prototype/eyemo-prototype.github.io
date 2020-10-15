@@ -6,20 +6,33 @@ import Col from 'react-bootstrap/Col'
 import PlayerPanel from './components/PlayerPanel'
 import CutsPanel from './components/CutsPanel'
 import styles from './App.module.css'
-import { Container } from '@material-ui/core'
+import { Container, createMuiTheme, ThemeProvider } from '@material-ui/core'
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: '#4d6ddf',
+		},
+		secondary: {
+			main: '#314eb7',
+		},
+	},
+})
 
 function App() {
 	return (
-		<Container>
-			<Row>
-				<Col>
-					<PlayerPanel />
-				</Col>
-				<Col className={styles.rightCol}>
-					<CutsPanel />
-				</Col>
-			</Row>
-		</Container>
+		<ThemeProvider theme={theme}>
+			<Container>
+				<Row>
+					<Col>
+						<PlayerPanel />
+					</Col>
+					<Col className={styles.rightCol}>
+						<CutsPanel />
+					</Col>
+				</Row>
+			</Container>
+		</ThemeProvider>
 	)
 }
 
