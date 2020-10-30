@@ -1,12 +1,10 @@
 import React from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import PlayerPanel from './components/PlayerPanel'
 import CutsPanel from './components/CutsPanel'
 import styles from './App.module.css'
-import { Container, createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { Container, createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
 
 const theme = createMuiTheme({
 	palette: {
@@ -23,14 +21,14 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<Container>
-				<Row>
-					<Col>
+				<Grid container wrap={'nowrap'}>
+					<Grid item>
 						<PlayerPanel />
-					</Col>
-					<Col className={styles.rightCol}>
+					</Grid>
+					<Grid item className={styles.rightCol}>
 						<CutsPanel />
-					</Col>
-				</Row>
+					</Grid>
+				</Grid>
 			</Container>
 		</ThemeProvider>
 	)

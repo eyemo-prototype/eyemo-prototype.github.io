@@ -1,47 +1,31 @@
 import React from 'react'
 import store from '../store'
-import TimeInput from './TimeInput'
 import styles from './CutsPanel.module.sass'
 import { observer } from 'mobx-react'
 import CutItem from './CutItem'
 import { Button, Grid } from '@material-ui/core'
 import { formatTime } from '../utils/format-time'
+import playerService from '../services/player-service'
+import CopyToClipboard from 'react-copy-to-clipboard'
+import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined'
+import { useState } from 'react'
+import classNames from 'classnames'
 
 export function CutsPanel() {
-	function changeStart() {}
+	const [showCopied, setShowCopied] = useState(false)
 
-	function changeEnd() {}
+	function playAll() {
+		playerService.playStory(store.cuts)
+	}
 
-	function play() {}
-
-	function add() {
-		if (!store.currentCut) return
-		store.cuts.push(store.currentCut)
-		store.currentCut = {
-			startTime: 0,
-			endTime: 0,
-		}
+	function onUrlCopy() {
+		setShowCopied(true)
+		setTimeout(() => setShowCopied(false), 3000)
 	}
 
 	return (
 		<>
 			<Grid className={styles.header} />
-			<Grid container justify='center' className={styles.timeRow} alignContent='flex-end'>
-				<Grid item>
-					<TimeInput value={store.currentCut.startTime} label='Start time' onChange={changeStart} />
-				</Grid>
-				<Grid item>
-					<TimeInput value={store.currentCut?.endTime} label='End time' onChange={changeEnd} />
-				</Grid>
-				<Grid item className={styles.buttons} xs>
-					<Button variant='outlined' disableElevation onClick={play}>
-						Play
-					</Button>
-					<Button variant='contained' color='primary' disableElevation onClick={add}>
-						Add
-					</Button>
-				</Grid>
-			</Grid>
 			<Grid container direction='column'>
 				{store.cuts.map((cut, idx) => (
 					<CutItem key={idx} idx={idx} cut={cut} />
@@ -54,6 +38,22 @@ export function CutsPanel() {
 				<Grid item lg>
 					Number of frames: {store.cuts.length}
 				</Grid>
+			</Grid>
+			<Grid>
+				<Button variant='contained' disableElevation onClick={playAll} fullWidth color='primary'>
+					Play all
+				</Button>
+			</Grid>
+			<Grid className={styles.shareUrlBlock}>
+				<div className={styles.shareUrl}>
+					<span className={styles.shareUrlText}>{store.shareUrl}</span>
+					<CopyToClipboard text={store.shareUrl} onCopy={onUrlCopy}>
+						<AssignmentTurnedInOutlinedIcon />
+					</CopyToClipboard>
+					<div className={classNames(styles.copiedText, { [styles.copiedTextShown]: showCopied })}>
+						Copied
+					</div>
+				</div>
 			</Grid>
 		</>
 	)

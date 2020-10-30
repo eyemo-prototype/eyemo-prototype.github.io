@@ -1,21 +1,51 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-import store from '../store'
+import store, { Cut } from '../store'
 import ReactPlayer from 'react-player'
 import { formatTime } from '../utils/format-time'
 import { Button, Grid, TextField } from '@material-ui/core'
 import styles from './PlayerPanel.module.sass'
+import playerService from '../services/player-service'
+import { ReactComponent as EyemoLogo } from './logo.svg'
+import TimeInput from './TimeInput'
 
 function PlayerPanel() {
-	const ref = useRef<ReactPlayer>(null)
-	const [playing, setPlaying] = useState(true)
+	const [cut, setCut] = useState<Cut | null>(null)
+	const [playing, setPlaying] = useState(false)
 	const [position, setPosition] = useState<number | null>(null)
+
+	function changeStart() {}
+
+	function changeEnd() {}
+
+	function play() {}
+
+	function clear() {
+		setCut(null)
+	}
+
+	function add() {
+		if (!cut) return
+		store.addCut(cut)
+		setCut({
+			startTime: 0,
+			endTime: 0,
+		})
+	}
+
+	const playerRef = useCallback((player) => {
+		playerService.setPlayer({
+			player,
+			start: () => setPlaying(true),
+			stop: () => setPlaying(false),
+		})
+	}, [])
 
 	useEffect(() => {
 		let stopped = false
 		function getPosition() {
-			if (stopped || !ref.current) return
-			setPosition(ref.current.getCurrentTime())
+			if (stopped || !playerService.ready) return
+			setPosition(playerService.currentTime)
 			requestAnimationFrame(getPosition)
 		}
 		requestAnimationFrame(getPosition)
@@ -25,28 +55,32 @@ function PlayerPanel() {
 	}, [])
 
 	function startFrame() {
-		const time = ref.current?.getCurrentTime()!
-		store.currentCut = store.currentCut || {
-			startTime: 0,
-			endTime: 0,
+		const time = playerService.currentTime
+		const current = {
+			startTime: cut?.startTime || 0,
+			endTime: cut?.endTime || 0,
 		}
-		store.currentCut.startTime = time
-		if (store.currentCut.endTime < time) store.currentCut.endTime = time + 5
+		current.startTime = time
+		if (current.endTime < time) current.endTime = time + 5
+		setCut(current)
 	}
 
 	function endFrame() {
-		const time = ref.current?.getCurrentTime()!
-		store.currentCut = store.currentCut || {
-			startTime: 0,
-			endTime: 0,
+		const time = playerService.currentTime
+		const current = {
+			startTime: cut?.startTime || 0,
+			endTime: cut?.endTime || 0,
 		}
-		store.currentCut.endTime = time
-		if (store.currentCut.startTime > time) store.currentCut.startTime = time - 5
+		current.endTime = time
+		if (current.startTime > time) current.startTime = time - 5
+		setCut(current)
 	}
 
 	return (
 		<>
-			<Grid className={styles.header}>eyemo</Grid>
+			<Grid className={styles.header} container alignContent='center'>
+				<EyemoLogo />
+			</Grid>
 			<Grid className={styles.searchLine} container direction='column' justify={'flex-end'}>
 				<TextField
 					fullWidth
@@ -57,7 +91,7 @@ function PlayerPanel() {
 			</Grid>
 			<Grid className='padded'>
 				<ReactPlayer
-					ref={ref}
+					ref={playerRef}
 					playing={playing}
 					url={store.url}
 					//onProgress={(e) => console.log(e)}
@@ -88,21 +122,27 @@ function PlayerPanel() {
 					</Button>
 				</Grid>
 			</Grid>
-			<Grid>
-				<Grid className='padded'>
-					<Button
-						variant='contained'
-						fullWidth
-						disableElevation
-						onClick={() => {
-							//ref.current?.seekTo(3)
-							setPlaying(!playing)
-						}}
-					>
-						Continue Watching
-					</Button>
+			{cut && (
+				<Grid container justify='center' className={styles.timeRow} alignContent='flex-end'>
+					<Grid item>
+						<TimeInput value={cut.startTime} label='Start time' onChange={changeStart} />
+					</Grid>
+					<Grid item>
+						<TimeInput value={cut?.endTime} label='End time' onChange={changeEnd} />
+					</Grid>
+					<Grid item className={styles.buttons} xs justify={'flex-end'} container>
+						<Button variant='outlined' disableElevation onClick={play}>
+							Play
+						</Button>
+						<Button variant='contained' color='primary' disableElevation onClick={add}>
+							Add
+						</Button>
+						<Button variant='contained' disableElevation onClick={clear}>
+							Clear
+						</Button>
+					</Grid>
 				</Grid>
-			</Grid>
+			)}
 		</>
 	)
 }

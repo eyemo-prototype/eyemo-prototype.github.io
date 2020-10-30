@@ -1,10 +1,4 @@
 
-.timeRow 
-	height: 90px
-	padding-bottom: 10px
-	> :not(:first-child) 
-		margin-left: 8px
-
 
 
 .timeInput 
@@ -24,15 +18,6 @@
 //.label 
 	
 
-
-.buttons 
-	display: flex
-	align-items: flex-end
-
-
-.buttons :first-child 
-	margin-right: 5px
-
 .infoLine
 	padding-left: 20px
 	padding-bottom: 5px
@@ -44,3 +29,34 @@
 
 .header
 	height: 100px
+	
+
+.shareUrlBlock
+	padding: 5px 0
+
+.shareUrl
+	margin-top: 30px
+	border: 1px solid #ddd
+	border-radius: 3px
+	color: #666
+	padding: 5px
+	display: flex
+	position: relative
+
+.shareUrlText
+	display: inline-block
+	overflow: hidden
+	white-space: nowrap
+	text-overflow: ellipsis
+	
+	
+.copiedText
+	position: absolute
+	right: 0
+	top: -25px
+	font-size: 13px
+	opacity: 0
+	transition: opacity 1s
+
+.copiedTextShown
+	opacity: 1

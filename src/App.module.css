@@ -1,3 +1,5 @@
 .rightCol {
 	background: #ededed;
+	padding: 10px;
+	min-width: 0;
 }
