@@ -23,6 +23,16 @@ function CutItem(props: Props) {
 		store.removeCut(props.cut)
 	}
 
+	function setStart(time: number) {
+		props.cut.startTime = time
+		if (props.cut.endTime < props.cut.startTime + 1) props.cut.endTime = props.cut.startTime + 1
+	}
+
+	function setEnd(time: number) {
+		props.cut.endTime = time
+		if (props.cut.startTime > props.cut.endTime - 1) props.cut.startTime = props.cut.endTime - 1
+	}
+
 	return (
 		<Grid container className={styles.container}>
 			<Grid item className={styles.idx}>
@@ -35,10 +45,10 @@ function CutItem(props: Props) {
 					</Button>
 				</Grid>
 				<Grid item lg>
-					<TimeInput value={props.cut.startTime} label='Start time' onChange={() => {}} />
+					<TimeInput value={props.cut.startTime} label='Start time' onChange={(time) => setStart(time)} />
 				</Grid>
 				<Grid item lg>
-					<TimeInput value={props.cut.endTime} label='Start time' onChange={() => {}} />
+					<TimeInput value={props.cut.endTime} label='Start time' onChange={(time) => setEnd(time)} />
 				</Grid>
 				<Grid item className={styles.rightBlock}>
 					<CloseIcon className={styles.remove} fontSize='small' onClick={remove} />

@@ -14,11 +14,24 @@ function PlayerPanel() {
 	const [playing, setPlaying] = useState(false)
 	const [position, setPosition] = useState<number | null>(null)
 
-	function changeStart() {}
+	function changeStart(time: number) {
+		setCut({
+			startTime: time,
+			endTime: Math.max(cut!.endTime, time + 1),
+		})
+	}
 
-	function changeEnd() {}
+	function changeEnd(time: number) {
+		setCut({
+			startTime: Math.min(cut!.startTime, time - 1),
+			endTime: time,
+		})
+	}
 
-	function play() {}
+	function play() {
+		if (!cut) return
+		playerService.playStory([cut])
+	}
 
 	function clear() {
 		setCut(null)
@@ -124,13 +137,21 @@ function PlayerPanel() {
 			</Grid>
 			{cut && (
 				<Grid container justify='center' className={styles.timeRow} alignContent='flex-end'>
-					<Grid item>
+					<Grid item lg>
 						<TimeInput value={cut.startTime} label='Start time' onChange={changeStart} />
 					</Grid>
-					<Grid item>
+					<Grid item lg>
 						<TimeInput value={cut?.endTime} label='End time' onChange={changeEnd} />
 					</Grid>
-					<Grid item className={styles.buttons} xs justify={'flex-end'} container>
+					<Grid
+						item
+						className={styles.buttons}
+						xs
+						justify={'flex-end'}
+						alignContent={'center'}
+						container
+						wrap={'nowrap'}
+					>
 						<Button variant='outlined' disableElevation onClick={play}>
 							Play
 						</Button>

@@ -1,10 +1,11 @@
 import React from 'react'
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import PlayerPanel from './components/PlayerPanel'
 import CutsPanel from './components/CutsPanel'
 import styles from './App.module.css'
 import { Container, createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
+import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'
+import { LocalizationProvider } from '@material-ui/pickers'
 
 const theme = createMuiTheme({
 	palette: {
@@ -20,16 +21,18 @@ const theme = createMuiTheme({
 function App() {
 	return (
 		<ThemeProvider theme={theme}>
-			<Container>
-				<Grid container wrap={'nowrap'}>
-					<Grid item>
-						<PlayerPanel />
+			<LocalizationProvider dateAdapter={DateFnsAdapter}>
+				<Container className={styles.container}>
+					<Grid container wrap={'nowrap'}>
+						<Grid item>
+							<PlayerPanel />
+						</Grid>
+						<Grid item className={styles.rightCol}>
+							<CutsPanel />
+						</Grid>
 					</Grid>
-					<Grid item className={styles.rightCol}>
-						<CutsPanel />
-					</Grid>
-				</Grid>
-			</Container>
+				</Container>
+			</LocalizationProvider>
 		</ThemeProvider>
 	)
 }
