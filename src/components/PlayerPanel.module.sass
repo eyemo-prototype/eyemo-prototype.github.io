@@ -20,3 +20,23 @@
     > :not(:first-child)
         margin-left: 8px
 
+.playerWrapper
+    position: relative
+    padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+
+.player 
+    position: absolute
+    top: 0
+    left: 0
+    
+.playerPlaceholder
+    @extend .player
+    background: #dddddd
+    height: 100%
+    width: 100%
+    
+.previewButtons
+    padding: 10px
+    display: flex
+    justify-content: space-evenly
+    

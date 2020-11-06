@@ -1,5 +1,6 @@
+import { when } from 'mobx'
 import ReactPlayer from 'react-player'
-import { Cut } from '../store'
+import store, { Cut } from '../store'
 
 interface PlayerControl {
 	player: ReactPlayer
@@ -27,12 +28,14 @@ export class PlayerService {
 		console.log('--> player set', player)
 	}
 
-	playStory(cuts: Cut[]) {
+	async playStory(cuts: Cut[] = store.cuts) {
 		if (!this.control) return
 		console.log('---> playStory <---', JSON.stringify(cuts))
 		this.playingStory = cuts
 		this.currentCutIdx = 0
+		await this.stop()
 		this.playCurrentCut()
+		await this.start()
 	}
 
 	getPlayerState() {
@@ -40,19 +43,25 @@ export class PlayerService {
 		return internalPlayer?.getPlayerState()
 	}
 
+	async stop() {
+		if (!store.playing || !this.control) return
+		this.stopTracking()
+		this.control.stop()
+		await when(() => !store.playing)
+	}
+
+	async start() {
+		if (store.playing || !this.control) return
+		this.startTracking()
+		this.control.start()
+		await when(() => store.playing)
+	}
+
 	async playCurrentCut() {
 		if (!this.playingStory || !this.control || !this.currentCut) return
 		this.currentCutSeekDone = false
 		console.log('---> playCurrentCut <---', JSON.stringify(this.currentCut))
 		this.control.player.seekTo(this.currentCut.startTime)
-		this.control.start()
-		this.startTracking()
-	}
-
-	stop() {
-		console.log('---> stop <---')
-		this.control?.stop()
-		this.stopTracking()
 	}
 
 	startTracking() {

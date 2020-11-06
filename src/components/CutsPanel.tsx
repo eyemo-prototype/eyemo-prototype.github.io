@@ -15,7 +15,7 @@ export function CutsPanel() {
 	const [showCopied, setShowCopied] = useState(false)
 
 	function playAll() {
-		playerService.playStory(store.cuts)
+		playerService.playStory()
 	}
 
 	function onUrlCopy() {
@@ -26,35 +26,45 @@ export function CutsPanel() {
 	return (
 		<>
 			<Grid className={styles.header} />
-			<Grid container direction='column'>
-				{store.cuts.map((cut, idx) => (
-					<CutItem key={idx} idx={idx} cut={cut} />
-				))}
-			</Grid>
-			<Grid container className={styles.infoLine} item>
-				<Grid item lg>
-					Trailer duration: {formatTime(store.trailerLength)}
+			{store.url ? (
+				<>
+					<Grid container direction='column'>
+						{store.cuts.map((cut, idx) => (
+							<CutItem key={idx} idx={idx} cut={cut} />
+						))}
+					</Grid>
+					<Grid container className={styles.infoLine} item>
+						<Grid item lg>
+							Trailer duration: {formatTime(store.trailerLength)}
+						</Grid>
+						<Grid item lg>
+							Number of frames: {store.cuts.length}
+						</Grid>
+					</Grid>
+					<Grid>
+						<Button variant='contained' disableElevation onClick={playAll} fullWidth color='primary'>
+							Play all
+						</Button>
+					</Grid>
+					<Grid className={styles.shareUrlBlock}>
+						<div className={styles.shareUrl}>
+							<span className={styles.shareUrlText}>{store.shareUrl}</span>
+							<CopyToClipboard text={store.shareUrl || ''} onCopy={onUrlCopy}>
+								<AssignmentTurnedInOutlinedIcon />
+							</CopyToClipboard>
+							<div className={classNames(styles.copiedText, { [styles.copiedTextShown]: showCopied })}>
+								Copied
+							</div>
+						</div>
+					</Grid>
+				</>
+			) : (
+				<Grid container direction='column'>
+					<Grid item lg>
+						Please select video for trailer editing
+					</Grid>
 				</Grid>
-				<Grid item lg>
-					Number of frames: {store.cuts.length}
-				</Grid>
-			</Grid>
-			<Grid>
-				<Button variant='contained' disableElevation onClick={playAll} fullWidth color='primary'>
-					Play all
-				</Button>
-			</Grid>
-			<Grid className={styles.shareUrlBlock}>
-				<div className={styles.shareUrl}>
-					<span className={styles.shareUrlText}>{store.shareUrl}</span>
-					<CopyToClipboard text={store.shareUrl} onCopy={onUrlCopy}>
-						<AssignmentTurnedInOutlinedIcon />
-					</CopyToClipboard>
-					<div className={classNames(styles.copiedText, { [styles.copiedTextShown]: showCopied })}>
-						Copied
-					</div>
-				</div>
-			</Grid>
+			)}
 		</>
 	)
 }

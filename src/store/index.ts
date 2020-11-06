@@ -23,23 +23,16 @@ if (url.query.story) {
 	})
 }
 
-class Store {
-	@observable url: string = url.query.video
-		? decodeURIComponent(url.query.video)
-		: 'https://www.youtube.com/watch?v=jrOxsjdeccw'
+const queryUrl = url.query.video ? decodeURIComponent(url.query.video) : null
 
-	@observable cuts: Cut[] = urlStory || [
-		{
-			startTime: 900,
-			endTime: 905,
-		},
-		{
-			startTime: 1900,
-			endTime: 1915,
-		},
-	]
+class Store {
+	@observable editMode = !queryUrl
+	@observable playing = false
+	@observable url: string | null = queryUrl
+	@observable cuts: Cut[] = urlStory || []
 
 	@computed get shareUrl() {
+		if (!this.url) return null
 		const baseUrl = window.location.href.split('?')[0]
 		return `${baseUrl}?video=${encodeURIComponent(this.url)}&story=${encodeURIComponent(
 			this.cuts.map((cut) => [cut.startTime, cut.endTime].join(':')).join(',')

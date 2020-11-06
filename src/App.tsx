@@ -6,6 +6,8 @@ import styles from './App.module.css'
 import { Container, createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'
 import { LocalizationProvider } from '@material-ui/pickers'
+import store from './store'
+import { observer } from 'mobx-react'
 
 const theme = createMuiTheme({
 	palette: {
@@ -24,12 +26,14 @@ function App() {
 			<LocalizationProvider dateAdapter={DateFnsAdapter}>
 				<Container className={styles.container}>
 					<Grid container wrap={'nowrap'}>
-						<Grid item>
+						<Grid item lg className={'padded'}>
 							<PlayerPanel />
 						</Grid>
-						<Grid item className={styles.rightCol}>
-							<CutsPanel />
-						</Grid>
+						{store.editMode && (
+							<Grid item className={styles.rightCol} lg>
+								<CutsPanel />
+							</Grid>
+						)}
 					</Grid>
 				</Container>
 			</LocalizationProvider>
@@ -37,4 +41,4 @@ function App() {
 	)
 }
 
-export default App
+export default observer(App)
