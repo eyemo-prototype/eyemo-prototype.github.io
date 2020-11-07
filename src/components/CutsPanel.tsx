@@ -21,6 +21,9 @@ export function CutsPanel() {
 	function onUrlCopy() {
 		setShowCopied(true)
 		setTimeout(() => setShowCopied(false), 3000)
+		gtag('event', 'url-copy', {
+			url: store.shareUrl,
+		})
 	}
 
 	return (
