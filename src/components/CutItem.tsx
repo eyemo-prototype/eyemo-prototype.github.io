@@ -45,10 +45,10 @@ function CutItem(props: Props) {
 					</Button>
 				</Grid>
 				<Grid item lg>
-					<TimeInput value={props.cut.startTime} label='Start time' onChange={(time) => setStart(time)} />
+					<TimeInput value={props.cut.startTime} onChange={(time) => setStart(time)} />
 				</Grid>
 				<Grid item lg>
-					<TimeInput value={props.cut.endTime} label='Start time' onChange={(time) => setEnd(time)} />
+					<TimeInput value={props.cut.endTime} onChange={(time) => setEnd(time)} />
 				</Grid>
 				<Grid item className={styles.rightBlock}>
 					<CloseIcon className={styles.remove} fontSize='small' onClick={remove} />

@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { ChangeEvent, WheelEvent } from 'react'
 
-import { TimePicker } from '@material-ui/pickers'
 import { IconButton, InputAdornment, TextField } from '@material-ui/core'
-import set from 'date-fns/set'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
 
 import styles from './TimeInput.module.sass'
-import { getHours, getMilliseconds, getMinutes, getSeconds } from 'date-fns'
+import { formatTime } from "../utils/format-time";
 
 interface Props {
-	value: number | null
-	label: string
+	value: number
+	label?: string
 	onChange: (value: number) => void
 }
 
@@ -26,52 +24,49 @@ function Adornment({ onClick, position }: { position: 'start' | 'end'; onClick: 
 }
 
 export default function TimeInput(props: Props) {
-	const value = set(new Date(2000, 1, 1), {
-		seconds: props.value ?? undefined,
-	})
 
-	function onChange(date: Date | null) {
-		if (!date) return
-		const hours = getHours(date)
-		const mins = getMinutes(date)
-		const seconds = getSeconds(date)
-		const millis = getMilliseconds(date)
-		let res = hours * 3600 + mins * 60 + seconds + millis / 1000
-		props.onChange(res)
-		console.log('--> ', res)
+	function onChange(e: ChangeEvent<HTMLInputElement>) {
+	}
+
+	function onWheel(e: WheelEvent<HTMLInputElement>): void {
+		e.preventDefault();
+
+		if (e.deltaY) {
+			onAdd();
+		} else {
+			onRemove();
+		}
 	}
 
 	function onRemove() {
 		if (!props.value) return
-		props.onChange(props.value - 1)
-	}
-	function onAdd() {
-		if (!props.value) return
-		props.onChange(props.value + 1)
+		props.onChange(props.value - 0.1)
 	}
 
+	function onAdd() {
+		if (!props.value) return
+		props.onChange(props.value + 0.1)
+	}
+
+	const formattedProps = {
+		...props,
+		value: formatTime(props.value, true)
+	};
+
 	return (
-		<TimePicker
-			disableOpenPicker
-			ampm={false}
-			value={value}
+		<TextField
+			{...formattedProps}
+			className={styles.timeInput}
+			size={'small'}
+			helperText={null}
+			variant='outlined'
 			onChange={onChange}
-			inputFormat={'HH:mm:ss.S'}
-			mask='__:__:__._'
-			views={['hours', 'minutes', 'seconds']}
-			renderInput={(props) => (
-				<TextField
-					{...props}
-					className={styles.timeInput}
-					size={'small'}
-					helperText={null}
-					variant='outlined'
-					InputProps={{
-						startAdornment: <Adornment position='start' onClick={onRemove} />,
-						endAdornment: <Adornment position='end' onClick={onAdd} />,
-					}}
-				/>
-			)}
+			onWheel={onWheel}
+			InputProps={{
+				startAdornment: <Adornment position='start' onClick={onRemove} />,
+				endAdornment: <Adornment position='end' onClick={onAdd} />,
+				readOnly: true,
+			}}
 		/>
 	)
 }

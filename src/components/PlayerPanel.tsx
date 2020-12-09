@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { observer } from 'mobx-react'
 import store, { Cut } from '../store'
 import ReactPlayer from 'react-player'
@@ -14,7 +14,7 @@ import { when } from 'mobx'
 function PlayerPanel() {
 	const [cut, setCut] = useState<Cut | null>(null)
 	const [playing, setPlaying] = useState(false)
-	const [position, setPosition] = useState<number | null>(null)
+	const [position, setPosition] = useState<number>(0)
 
 	function changeStart(time: number) {
 		setCut({
@@ -68,38 +68,29 @@ function PlayerPanel() {
 		store.playing = false
 	}
 
-	useEffect(() => {
-		let stopped = false
-		function getPosition() {
-			if (stopped || !playerService.ready) return
-			setPosition(playerService.currentTime)
-			requestAnimationFrame(getPosition)
-		}
-		requestAnimationFrame(getPosition)
-		return () => {
-			stopped = true
-		}
-	}, [])
+	function onProgress({ playedSeconds }: { playedSeconds: number }) {
+		setPosition(playedSeconds);
+	}
 
 	function startFrame() {
-		const time = playerService.currentTime
 		const current = {
-			startTime: cut?.startTime || 0,
-			endTime: cut?.endTime || 0,
+			startTime: cut?.startTime || 0.0,
+			endTime: cut?.endTime || 0.0,
 		}
-		current.startTime = time
-		if (current.endTime < time) current.endTime = time + 5
+
+		current.startTime = position;
+		if (current.endTime < position) current.endTime = position + 5;
 		setCut(current)
 	}
 
 	function endFrame() {
-		const time = playerService.currentTime
 		const current = {
-			startTime: cut?.startTime || 0,
-			endTime: cut?.endTime || 0,
+			startTime: cut?.startTime || 0.0,
+			endTime: cut?.endTime || 0.0,
 		}
-		current.endTime = time
-		if (current.startTime > time) current.startTime = time - 5
+
+		current.endTime = position
+		if (current.startTime > position) current.startTime = position - 5
 		setCut(current)
 	}
 
@@ -133,10 +124,11 @@ function PlayerPanel() {
 						url={store.url}
 						width='100%'
 						height='100%'
-						//onProgress={(e) => console.log(e)}
+						onProgress={onProgress}
 						onStart={onStart}
 						onPlay={onPlay}
 						onPause={onPause}
+						progressInterval={100}
 						controls={true}
 						config={{
 							youtube: {
@@ -144,6 +136,12 @@ function PlayerPanel() {
 									//autoplay: 1,
 								},
 							},
+							twitch: {
+								options: {
+									autoplay: true,
+									time: '0h0m0s'
+								},
+							}
 						}}
 					/>
 				) : (
