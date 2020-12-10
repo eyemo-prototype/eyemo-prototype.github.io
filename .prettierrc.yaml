@@ -1,0 +1,11 @@
+semi: false
+useTabs: true
+singleQuote: true
+tabWidth: 4
+printWidth: 120
+jsxSingleQuote: true
+trailingComma: 'es5'
+overrides:
+    - files: 'ui/**/*'
+      options:
+          trailingComma: 'none'
