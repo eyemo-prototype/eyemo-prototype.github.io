@@ -51,7 +51,6 @@ export default function TimeInput(props: Props) {
 	}
 
 	function onAdd() {
-		console.log(props.value);
 		props.onChange(props.value + 0.1);
 	}
 
