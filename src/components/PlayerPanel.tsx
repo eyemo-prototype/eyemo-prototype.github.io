@@ -1,225 +1,258 @@
-import React, { useCallback, useState } from 'react'
-import { observer } from 'mobx-react'
-import store, { Cut } from '../store'
-import ReactPlayer from 'react-player'
-import { formatTime } from '../utils/format-time'
-import { Button, Grid, TextField } from '@material-ui/core'
-import styles from './PlayerPanel.module.sass'
-import playerService from '../services/player-service'
-import { ReactComponent as EyemoLogo } from './logo.svg'
-import TimeInput from './TimeInput'
-import classNames from 'classnames'
-import { when } from 'mobx'
+import React, { RefObject } from 'react';
+import ReactPlayer from 'react-player';
+import { Button, Grid, TextField } from '@material-ui/core';
+import classNames from 'classnames';
+import { when } from 'mobx';
+import { observer } from "mobx-react";
 
-function PlayerPanel() {
-	const [cut, setCut] = useState<Cut | null>(null)
-	const [playing, setPlaying] = useState(false)
-	const [position, setPosition] = useState<number>(0)
+import store, { Cut } from '../store';
+import { formatTime } from '../utils/format-time';
+import playerService from '../services/player-service';
 
-	function changeStart(time: number) {
-		setCut({
-			startTime: time,
-			endTime: Math.max(cut!.endTime, time + 1),
-		})
+import styles from './PlayerPanel.module.sass';
+import { ReactComponent as EyemoLogo } from './logo.svg';
+import TimeInput from './TimeInput';
+
+interface PlayerPanelState {
+	cut: Cut | null;
+	playing: boolean;
+	position: number;
+}
+
+class PlayerPanel extends React.Component {
+	private readonly playerRef: RefObject<ReactPlayer>;
+
+	state: PlayerPanelState;
+
+	constructor(props: any) {
+		super(props);
+
+		this.state = {
+			cut: null,
+			playing: false,
+			position: 0
+		};
+
+		this.playerRef = React.createRef<ReactPlayer>();
 	}
 
-	function changeEnd(time: number) {
-		setCut({
-			startTime: Math.min(cut!.startTime, time - 1),
+	changeStart = (time: number) => {
+		this.setState({
+			startTime: time,
+			endTime: Math.max(this.state.cut!.endTime, time + 1),
+		})
+	};
+
+	changeEnd = (time: number) => {
+		this.setState({
+			startTime: Math.min(this.state.cut!.startTime, time - 1),
 			endTime: time,
 		})
-	}
+	};
 
-	function play() {
-		if (!cut) return
-		playerService.playStory([cut])
-	}
+	play = (): void => {
+		const { cut } = this.state;
 
-	function clear() {
-		setCut(null)
-	}
+		cut && playerService.playStory([cut]);
+	};
 
-	function add() {
-		if (!cut) return
-		store.addCut(cut)
-		setCut({
+	clear = () => {
+		this.setState({
+			cut: null
+		})
+	};
+
+	onAddCut = () => {
+		const { cut } = this.state;
+
+		if (!cut) return;
+
+		store.addCut(cut);
+		this.setState({
 			startTime: 0,
 			endTime: 0,
 		})
-	}
+	};
 
-	const playerRef = useCallback((player) => {
+	onReady = (player: ReactPlayer) => {
 		playerService.setPlayer({
 			player,
-			start: () => setPlaying(true),
-			stop: () => setPlaying(false),
+			start: () => this.setState({ playing: true }),
+			stop: () => this.setState({ playing: false })
 		})
-	}, [])
+	};
 
-	function onPlay() {
-		console.log('---> onPlay <---')
-		if (!playing) setPlaying(true)
-		store.playing = true
-	}
+	onPlay = () => {
+		this.setState({ playing: true });
+		store.playing = true;
+	};
 
-	function onPause() {
-		console.log('---> onPause <---')
-		if (playing) setPlaying(false)
+	onPause = () => {
+		this.setState({ playing: false });
 		store.playing = false
-	}
+	};
 
-	function onProgress({ playedSeconds }: { playedSeconds: number }) {
-		setPosition(playedSeconds);
-	}
+	onProgress = ({ playedSeconds }: { playedSeconds: number }) => {
+		this.setState({ position: playedSeconds });
+	};
 
-	function startFrame() {
+	onStartFrame = () => {
+		const { position, cut } = this.state;
 		const current = {
-			startTime: cut?.startTime || 0.0,
-			endTime: cut?.endTime || 0.0,
-		}
+			startTime: cut?.startTime || 0,
+			endTime: cut?.endTime || 0,
+		};
 
 		current.startTime = position;
 		if (current.endTime < position) current.endTime = position + 5;
-		setCut(current)
-	}
+		this.setState({ cut: current });
+	};
 
-	function endFrame() {
+	onEndFrame = () => {
+		const { position, cut } = this.state;
 		const current = {
-			startTime: cut?.startTime || 0.0,
-			endTime: cut?.endTime || 0.0,
-		}
+			startTime: cut?.startTime || 0,
+			endTime: cut?.endTime || 0,
+		};
 
-		current.endTime = position
-		if (current.startTime > position) current.startTime = position - 5
-		setCut(current)
-	}
+		current.endTime = position;
+		if (current.startTime > position) current.startTime = position - 5;
+		this.setState({ cut: current });
+	};
 
-	async function onStart() {
-		setPlaying(false)
-		await when(() => !store.playing)
-		playerService.playStory(store.cuts)
-	}
+	onStart = async () => {
+		this.setState({ playing: false });
+		await when(() => !store.playing);
+		playerService.playStory(store.cuts);
+	};
 
-	return (
-		<>
-			<Grid className={styles.header} container alignContent='center'>
-				<EyemoLogo />
-			</Grid>
-			{store.editMode && (
-				<Grid className={styles.searchLine} container direction='column' justify={'flex-end'}>
-					<TextField
-						fullWidth
-						placeholder='Copy YouTube url'
-						value={store.url || ''}
-						onChange={(e) => (store.url = e.target.value)}
-					/>
+	render() {
+		const { position, playing, cut } = this.state;
+
+		return (
+			<>
+				<Grid className={styles.header} container alignContent='center'>
+					<EyemoLogo />
 				</Grid>
-			)}
-			<Grid className={classNames('padded', styles.playerWrapper)}>
-				{store.url ? (
-					<ReactPlayer
-						ref={playerRef}
-						playing={playing}
-						className={styles.player}
-						url={store.url}
-						width='100%'
-						height='100%'
-						onProgress={onProgress}
-						onStart={onStart}
-						onPlay={onPlay}
-						onPause={onPause}
-						progressInterval={100}
-						controls={true}
-						config={{
-							youtube: {
-								playerVars: {
-									//autoplay: 1,
-								},
-							},
-							twitch: {
-								options: {
-									autoplay: true,
-									time: '0h0m0s'
-								},
-							}
-						}}
-					/>
-				) : (
-					<div className={styles.playerPlaceholder} />
+				{store.editMode && (
+					<Grid className={styles.searchLine} container direction='column' justify={'flex-end'}>
+						<TextField
+							fullWidth
+							placeholder='Paste a YouTube url'
+							value={store.url || ''}
+							onChange={(e) => (store.url = e.target.value)}
+						/>
+					</Grid>
 				)}
-			</Grid>
-			{store.editMode && store.url ? (
-				<>
-					<Grid justify='center' container>
-						{formatTime(position, true)}
-					</Grid>
-					<Grid container>
-						<Grid className='padded' item lg>
-							<Button variant='contained' disableElevation fullWidth onClick={startFrame} color='primary'>
-								Start of frame
-							</Button>
-						</Grid>
-						<Grid className='padded' item lg>
-							<Button variant='contained' disableElevation onClick={endFrame} fullWidth color='primary'>
-								End of frame
-							</Button>
-						</Grid>
-					</Grid>
-					{cut && (
-						<Grid container justify='center' className={styles.timeRow} alignContent='flex-end'>
-							<Grid item lg>
-								<TimeInput value={cut.startTime} label='Start time' onChange={changeStart} />
-							</Grid>
-							<Grid item lg>
-								<TimeInput value={cut?.endTime} label='End time' onChange={changeEnd} />
-							</Grid>
-							<Grid
-								item
-								className={styles.buttons}
-								xs
-								justify={'flex-end'}
-								alignContent={'center'}
-								container
-								wrap={'nowrap'}
-							>
-								<Button variant='outlined' disableElevation onClick={play}>
-									Play
-								</Button>
-								<Button variant='contained' color='primary' disableElevation onClick={add}>
-									Add
-								</Button>
-								<Button variant='contained' disableElevation onClick={clear}>
-									Clear
-								</Button>
-							</Grid>
-						</Grid>
+				<Grid className={classNames('padded', styles.playerWrapper)}>
+					{store.url ? (
+						<ReactPlayer
+							ref={this.playerRef}
+							playing={playing}
+							className={styles.player}
+							url={store.url}
+							width='100%'
+							height='100%'
+							onProgress={this.onProgress}
+							onStart={this.onStart}
+							onPlay={this.onPlay}
+							onPause={this.onPause}
+							onReady={this.onReady}
+							onBuffer={() => console.log('start')}
+							onBufferEnd={() => console.log('end')}
+							progressInterval={100}
+							controls={true}
+							config={{
+								youtube: {
+									playerVars: {
+										//autoplay: 1,
+									},
+								},
+								twitch: {
+									options: {
+										autoplay: true,
+										time: '0h0m0s'
+									},
+								}
+							}}
+						/>
+					) : (
+						<div className={styles.playerPlaceholder} />
 					)}
-				</>
-			) : (
-				<>
-					<Grid className={styles.previewButtons} container>
-						<Button
-							variant='contained'
-							size='large'
-							color='primary'
-							disableElevation
-							onClick={() => playerService.playStory()}
-						>
-							Play trailer
-						</Button>
-						<Button
-							variant='contained'
-							color='primary'
-							disableElevation
-							onClick={() => (store.editMode = true)}
-						>
-							Make your own trailer
-						</Button>
-					</Grid>
-				</>
-			)}
-		</>
-	)
+				</Grid>
+				{store.editMode && store.url ? (
+					<>
+						<Grid justify='center' container>
+							{formatTime(position, true)}
+						</Grid>
+						<Grid container>
+							<Grid className='padded' item lg>
+								<Button variant='contained' disableElevation fullWidth onClick={this.onStartFrame} color='primary'>
+									Start of frame
+								</Button>
+							</Grid>
+							<Grid className='padded' item lg>
+								<Button variant='contained' disableElevation onClick={this.onEndFrame} fullWidth color='primary'>
+									End of frame
+								</Button>
+							</Grid>
+						</Grid>
+						{cut && (
+							<Grid container justify='center' className={styles.timeRow} alignContent='flex-end'>
+								<Grid item lg>
+									<TimeInput value={cut.startTime} label='Start time' onChange={this.changeStart} />
+								</Grid>
+								<Grid item lg>
+									<TimeInput value={cut?.endTime} label='End time' onChange={this.changeEnd} />
+								</Grid>
+								<Grid
+									item
+									className={styles.buttons}
+									xs
+									justify={'flex-end'}
+									alignContent={'center'}
+									container
+									wrap={'nowrap'}
+								>
+									<Button variant='outlined' disableElevation onClick={this.play}>
+										Play
+									</Button>
+									<Button variant='contained' color='primary' disableElevation onClick={this.onAddCut}>
+										Add
+									</Button>
+									<Button variant='contained' disableElevation onClick={this.clear}>
+										Clear
+									</Button>
+								</Grid>
+							</Grid>
+						)}
+					</>
+				) : (
+					<>
+						<Grid className={styles.previewButtons} container>
+							<Button
+								variant='contained'
+								size='large'
+								color='primary'
+								disableElevation
+								onClick={() => playerService.preloadStory()}
+							>
+								Play trailer
+							</Button>
+							<Button
+								variant='contained'
+								color='primary'
+								disableElevation
+								onClick={() => (store.editMode = true)}
+							>
+								Make your own trailer
+							</Button>
+						</Grid>
+					</>
+				)}
+			</>
+		)
+	}
 }
 
 export default observer(PlayerPanel)
