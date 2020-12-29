@@ -23,6 +23,16 @@ export class PlayerService {
 		return this.playingStory?.[this.currentCutIdx] || null
 	}
 
+	get currentTime() {
+		if (!this.control) return 0
+		return this.control.player.getCurrentTime()
+	}
+
+	get player() {
+		if (!this.control) return 0;
+		return this.control.player;
+	}
+
 	setPlayer(player: PlayerControl | null) {
 		this.control = player
 		console.log('--> player set', player)
@@ -96,12 +106,20 @@ export class PlayerService {
 		}
 	}
 
-	get currentTime() {
-		if (!this.control) return 0
-		return this.control.player.getCurrentTime()
+	preloadStory(cuts: Cut[] = store.cuts) {
+		const player = this.player;
+
+		if (!player || !this.control) return;
+
+		cuts.forEach(cut => {
+			player.seekTo(cut.startTime);
+			this.control?.start();
+			setTimeout(() => this.control?.stop());
+
+		});
 	}
 }
 
-const playerService = new PlayerService()
+const playerService = new PlayerService();
 
 export default playerService

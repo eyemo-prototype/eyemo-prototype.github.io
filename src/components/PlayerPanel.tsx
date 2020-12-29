@@ -235,7 +235,7 @@ class PlayerPanel extends React.Component {
 								size='large'
 								color='primary'
 								disableElevation
-								onClick={() => playerService.preloadStory()}
+								onClick={() => playerService.playStory()}
 							>
 								Play trailer
 							</Button>
