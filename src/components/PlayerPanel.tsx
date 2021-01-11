@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react'
 import ReactPlayer from 'react-player'
-import { Button, Grid, TextField } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import classNames from 'classnames'
 import { when } from 'mobx'
 import { observer } from 'mobx-react'
@@ -130,16 +130,6 @@ class PlayerPanel extends React.Component {
 
 		return (
 			<>
-				{store.editMode && (
-					<Grid className={styles.searchLine} container direction='column' justify={'flex-end'}>
-						<TextField
-							fullWidth
-							placeholder='Paste a YouTube url'
-							value={store.url || ''}
-							onChange={(e) => (store.url = e.target.value)}
-						/>
-					</Grid>
-				)}
 				<Grid className={classNames('padded', styles.playerWrapper)}>
 					{store.url ? (
 						<ReactPlayer
