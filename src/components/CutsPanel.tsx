@@ -27,8 +27,7 @@ export function CutsPanel() {
 	}
 
 	return (
-		<>
-			<Grid className={styles.header} />
+		<Grid className={styles.cutsPanel}>
 			{store.url ? (
 				<>
 					<Grid container direction='column'>
@@ -62,13 +61,11 @@ export function CutsPanel() {
 					</Grid>
 				</>
 			) : (
-				<Grid container direction='column'>
-					<Grid item lg>
-						Please select video for trailer editing
-					</Grid>
+				<Grid container className={styles.cutsPanelBlank}>
+					Please select video for trailer editing
 				</Grid>
 			)}
-		</>
+		</Grid>
 	)
 }
 
