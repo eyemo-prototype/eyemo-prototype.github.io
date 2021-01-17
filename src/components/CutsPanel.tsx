@@ -1,5 +1,5 @@
 import React from 'react'
-import store from '../store'
+import store, { Cut } from '../store'
 import styles from './CutsPanel.module.sass'
 import { observer } from 'mobx-react'
 import CutItem from './CutItem'
@@ -31,16 +31,16 @@ export function CutsPanel() {
 			{store.url ? (
 				<>
 					<Grid container direction='column'>
-						{store.cuts.map((cut, idx) => (
-							<CutItem key={idx} idx={idx} cut={cut} />
-						))}
+						{store.players.map(
+							(item, idx) => idx !== 0 && <CutItem key={idx} idx={idx - 1} cut={item.cut as Cut} />
+						)}
 					</Grid>
 					<Grid container className={styles.infoLine} item>
 						<Grid item lg>
 							Trailer duration: {formatTime(store.trailerLength)}
 						</Grid>
 						<Grid item lg>
-							Number of frames: {store.cuts.length}
+							Number of frames: {store.players.length - 1}
 						</Grid>
 					</Grid>
 					<Grid>

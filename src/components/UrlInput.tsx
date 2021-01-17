@@ -12,7 +12,7 @@ export default function UrlInput() {
 						fullWidth
 						placeholder='Paste a YouTube url'
 						value={store.url || ''}
-						onChange={(e) => (store.url = e.target.value)}
+						onChange={(e) => store.changeUrl(e.target.value)}
 					/>
 				</Grid>
 			)}

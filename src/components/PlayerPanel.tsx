@@ -1,8 +1,8 @@
-import React, { RefObject } from 'react'
-import ReactPlayer from 'react-player'
+import React from 'react'
+// import ReactPlayer from 'react-player'
 import { Button, Grid } from '@material-ui/core'
 import classNames from 'classnames'
-import { when } from 'mobx'
+// import { when } from 'mobx'
 import { observer } from 'mobx-react'
 
 import store, { Cut } from '../store'
@@ -11,6 +11,7 @@ import playerService from '../services/player-service'
 
 import styles from './PlayerPanel.module.sass'
 import TimeInput from './TimeInput'
+import MultiPlayer from './MultiPlayer'
 
 interface PlayerPanelState {
 	cut: Cut | null
@@ -19,7 +20,7 @@ interface PlayerPanelState {
 }
 
 class PlayerPanel extends React.Component {
-	private readonly playerRef: RefObject<ReactPlayer>
+	// private readonly playerRef: RefObject<ReactPlayer>
 
 	state: PlayerPanelState
 
@@ -32,7 +33,7 @@ class PlayerPanel extends React.Component {
 			position: 0,
 		}
 
-		this.playerRef = React.createRef<ReactPlayer>()
+		// this.playerRef = React.createRef<ReactPlayer>()
 	}
 
 	changeStart = (time: number) => {
@@ -73,25 +74,25 @@ class PlayerPanel extends React.Component {
 		})
 	}
 
-	onReady = (player: ReactPlayer) => {
-		playerService.setPlayer({
-			player,
-			start: () => this.setState({ playing: true }),
-			stop: () => this.setState({ playing: false }),
-		})
-	}
+	// onReady = (player: ReactPlayer) => {
+	// 	playerService.setPlayer({
+	// 		player,
+	// 		start: () => this.setState({ playing: true }),
+	// 		stop: () => this.setState({ playing: false }),
+	// 	})
+	// }
+	//
+	// onPlay = () => {
+	// 	this.setState({ playing: true })
+	// 	store.playing = true
+	// }
+	//
+	// onPause = () => {
+	// 	this.setState({ playing: false })
+	// 	store.playing = false
+	// }
 
-	onPlay = () => {
-		this.setState({ playing: true })
-		store.playing = true
-	}
-
-	onPause = () => {
-		this.setState({ playing: false })
-		store.playing = false
-	}
-
-	onProgress = ({ playedSeconds }: { playedSeconds: number }) => {
+	updatePosition = (playedSeconds: number) => {
 		this.setState({ position: playedSeconds })
 	}
 
@@ -119,19 +120,20 @@ class PlayerPanel extends React.Component {
 		this.setState({ cut: current })
 	}
 
-	onStart = async () => {
-		this.setState({ playing: false })
-		await when(() => !store.playing)
-		playerService.playStory(store.cuts)
-	}
+	// onStart = async () => {
+	// 	this.setState({ playing: false })
+	// 	await when(() => !store.playing)
+	// 	playerService.playStory(store.cuts)
+	// }
 
 	render() {
-		const { position, playing, cut } = this.state
+		const { position, /*playing,*/ cut } = this.state
 
 		return (
 			<>
 				<Grid className={classNames('padded', styles.playerWrapper)}>
-					{store.url ? (
+					<MultiPlayer updatePosition={this.updatePosition} />
+					{/*					{store.url ? (
 						<ReactPlayer
 							ref={this.playerRef}
 							playing={playing}
@@ -151,7 +153,7 @@ class PlayerPanel extends React.Component {
 							config={{
 								youtube: {
 									playerVars: {
-										//autoplay: 1,
+										'controls': 0, 'iv_load_policy': 3, 'rel': 0, showinfo: 0
 									},
 								},
 								twitch: {
@@ -164,7 +166,7 @@ class PlayerPanel extends React.Component {
 						/>
 					) : (
 						<div className={styles.playerPlaceholder} />
-					)}
+					)}*/}
 				</Grid>
 				{store.editMode && store.url ? (
 					<>
