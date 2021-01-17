@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import CutItem from './CutItem'
 import { Button, Grid } from '@material-ui/core'
 import { formatTime } from '../utils/format-time'
-import playerService from '../services/player-service'
+// import playerService from '../services/player-service'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined'
 import { useState } from 'react'
@@ -14,8 +14,15 @@ import classNames from 'classnames'
 export function CutsPanel() {
 	const [showCopied, setShowCopied] = useState(false)
 
-	function playAll() {
-		playerService.playStory()
+	function initPlayAll() {
+		// playerService.playStory()
+		if (store.playersStore.length === 1) return
+
+		store.mode = 'playAll'
+		store.playersStore[0].iframeStatus = 'inactive'
+		for (let i = 1; i < store.playersStore.length; i += 1) {
+			store.playersStore[i].iframeStatus = 'preload'
+		}
 	}
 
 	function onUrlCopy() {
@@ -31,8 +38,8 @@ export function CutsPanel() {
 			{store.url ? (
 				<>
 					<Grid container direction='column'>
-						{store.players.map(
-							(item, idx) => idx !== 0 && <CutItem key={idx} idx={idx - 1} cut={item.cut as Cut} />
+						{store.playersStore.map(
+							(item, idx) => idx !== 0 && <CutItem key={idx} idx={idx} cut={item.cut as Cut} />
 						)}
 					</Grid>
 					<Grid container className={styles.infoLine} item>
@@ -40,11 +47,11 @@ export function CutsPanel() {
 							Trailer duration: {formatTime(store.trailerLength)}
 						</Grid>
 						<Grid item lg>
-							Number of frames: {store.players.length - 1}
+							Number of frames: {store.playersStore.length - 1}
 						</Grid>
 					</Grid>
 					<Grid>
-						<Button variant='contained' disableElevation onClick={playAll} fullWidth color='primary'>
+						<Button variant='contained' disableElevation onClick={initPlayAll} fullWidth color='primary'>
 							Play all
 						</Button>
 					</Grid>

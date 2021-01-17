@@ -7,7 +7,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import TimeInput from './TimeInput'
 import { formatTime } from '../utils/format-time'
 import CloseIcon from '@material-ui/icons/Close'
-import playerService from '../services/player-service'
+// import playerService from '../services/player-service'
 
 interface Props {
 	cut: Cut
@@ -16,27 +16,46 @@ interface Props {
 
 function CutItem(props: Props) {
 	function play() {
-		playerService.playStory([props.cut])
+		// playerService.playStory([props.cut])
+		store.mode = 'playOne'
+
+		store.playersStore.map((item) => {
+			if (item.index === props.idx) {
+				store.playersStore[item.index].iframeStatus = 'active'
+				return
+			}
+			store.playersStore[item.index].iframeStatus = 'inactive'
+		})
+		// store.playersStore[props.idx].playing = true
 	}
 
 	function remove() {
-		store.removeCut(props.cut)
+		store.removeCut(props.idx)
 	}
 
 	function setStart(time: number) {
 		props.cut.startTime = time
 		if (props.cut.endTime < props.cut.startTime + 1) props.cut.endTime = props.cut.startTime + 1
+
+		store.playersStore[props.idx].cut = {
+			startTime: props.cut.startTime,
+			endTime: props.cut.endTime,
+		}
 	}
 
 	function setEnd(time: number) {
 		props.cut.endTime = time
 		if (props.cut.startTime > props.cut.endTime - 1) props.cut.startTime = props.cut.endTime - 1
+		store.playersStore[props.idx].cut = {
+			startTime: props.cut.startTime,
+			endTime: props.cut.endTime,
+		}
 	}
 
 	return (
 		<Grid container className={styles.container}>
 			<Grid item className={styles.idx}>
-				{props.idx + 1}
+				{props.idx}
 			</Grid>
 			<Grid className={styles.block} container item lg>
 				<Grid item>

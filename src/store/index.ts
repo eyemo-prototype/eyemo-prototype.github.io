@@ -10,10 +10,11 @@ export interface Cut {
 	endTime: number
 }
 
-export interface Player {
+export interface PlayerStore {
 	index: number
 	playing: boolean
-	status: 'active' | 'inactive' | 'preload'
+	iframeStatus: 'active' | 'inactive' | 'preload'
+	muted: boolean
 	position?: number
 	url?: string
 	cut?: Cut
@@ -40,13 +41,15 @@ class Store {
 	@observable playing = false
 	@observable url: string | null = queryUrl
 	@observable cuts: Cut[] = urlStory || []
-	@observable players: Player[] = [
+	@observable mode: 'create' | 'playOne' | 'playAll' = 'create'
+	@observable playersStore: PlayerStore[] = [
 		{
 			index: 0,
 			playing: false,
 			url: this.url as string,
-			status: 'active',
+			iframeStatus: 'active',
 			position: 0,
+			muted: false,
 		},
 	]
 
@@ -54,7 +57,7 @@ class Store {
 		if (!this.url) return null
 		const baseUrl = window.location.href.split('?')[0]
 		return `${baseUrl}?video=${encodeURIComponent(this.url)}&story=${encodeURIComponent(
-			this.players
+			this.playersStore
 				.map((player, i) => {
 					if (i === 0) return
 					return [player.cut?.startTime, player.cut?.endTime].join(':')
@@ -64,7 +67,7 @@ class Store {
 	}
 
 	@computed get trailerLength() {
-		return this.players.reduce((duration, player, index) => {
+		return this.playersStore.reduce((duration, player, index) => {
 			if (index === 0 || !player.cut) return duration
 			return duration + player.cut.endTime - player.cut.startTime
 		}, 0)
@@ -82,11 +85,12 @@ class Store {
 	@action
 	addCut(cut: Cut) {
 		// this.cuts.push(cut)
-		this.players.push({
-			index: this.players.length,
+		this.playersStore.push({
+			index: this.playersStore.length,
 			playing: false,
 			url: this.url as string,
-			status: 'inactive',
+			iframeStatus: 'inactive',
+			muted: false,
 			cut: {
 				startTime: cut.startTime,
 				endTime: cut.endTime,
@@ -95,20 +99,21 @@ class Store {
 	}
 
 	@action
-	removeCut(cut: Cut) {
-		this.cuts = this.cuts.filter((c) => c !== cut)
+	removeCut(index: number) {
+		this.playersStore = this.playersStore.filter((item) => item.index !== index)
 	}
 
 	@action
 	changeUrl(url: string) {
 		this.url = url
-		this.players = []
-		this.players.push({
+		this.playersStore = []
+		this.playersStore.push({
 			index: 0,
 			playing: false,
 			url,
-			status: 'active',
+			iframeStatus: 'active',
 			position: 0,
+			muted: false,
 		})
 	}
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
 import { observer } from 'mobx-react'
+import { when } from 'mobx'
 
-import store from '../../store'
-import styles from './Player.module.sass'
+import store, { PlayerStore } from '../../store'
+import styles from './MultiPlayer.module.sass'
 
 interface Props {
 	updatePosition: (playedSeconds: number) => void
@@ -21,7 +22,7 @@ const statusOptions: any = {
 		isShow: true,
 	},
 	inactive: {
-		isShow: true,
+		isShow: false,
 	},
 }
 
@@ -29,17 +30,32 @@ function MultiPlayer(props: Props) {
 	const { updatePosition } = props
 	const playerRef = React.createRef<ReactPlayer>()
 
-	// function onReady(index: number, player: ReactPlayer) {
-	// 	store.addPlayer(index, player)
-	// 	playerService.setPlayer({
-	// 		player,
-	// 		start: () => store.players[index].playing = true,
-	// 		stop: () => store.players[index].playing = false,
-	// 	})
-	// }
+	function onReady(index: number, player: ReactPlayer) {
+		const cut = store.playersStore[index].cut
+		preloadVideo(index).then(() => {
+			if (!cut) return
+			player.seekTo(cut.startTime)
+			if (index === 1 && store.mode === 'playAll') {
+				store.playersStore[index].iframeStatus = 'active'
+				store.playersStore[index].playing = true
+			} else if (store.mode === 'playOne') {
+				store.playersStore[index].playing = true
+			}
+		})
+	}
+
+	async function preloadVideo(index: number) {
+		store.playersStore[index].muted = true
+		await when(() => store.playersStore[index].muted)
+		store.playersStore[index].playing = true
+		setTimeout(() => (store.playersStore[index].playing = false), 1000)
+		await when(() => !store.playersStore[index].playing)
+		store.playersStore[index].muted = false
+		await when(() => !store.playersStore[index].muted)
+	}
 
 	function onStart(playerIndex: number) {
-		store.players[playerIndex].playing = true
+		store.playersStore[playerIndex].playing = true
 	}
 
 	// function onPlay(playerIndex: number) {
@@ -47,38 +63,69 @@ function MultiPlayer(props: Props) {
 	// }
 
 	function onPause(playerIndex: number) {
-		store.players[playerIndex].playing = false
+		store.playersStore[playerIndex].playing = false
 	}
 
 	function onEnded(playerIndex: number) {
-		store.players[playerIndex].playing = false
+		store.playersStore[playerIndex].playing = false
 	}
 
-	function onProgress({ playedSeconds }: { playedSeconds: number }) {
-		updatePosition(playedSeconds)
+	function onProgress(index: number, { playedSeconds }: { playedSeconds: number }) {
+		const playerStore = store.playersStore[index]
+
+		if (playerStore.iframeStatus === 'preload') return
+
+		if (index === 0) updatePosition(playedSeconds)
+		else {
+			if (!isInCut(playerStore, playedSeconds)) goToNextCut(index)
+		}
+	}
+
+	function isInCut(playerStore: PlayerStore, playedSeconds: number) {
+		const cut = playerStore.cut
+
+		if (!cut) return false
+		if (playedSeconds >= cut.startTime && playedSeconds <= cut.endTime) return true
+		return false
+	}
+
+	function goToNextCut(curentIndex: number) {
+		store.playersStore[curentIndex].playing = false
+		store.playersStore[curentIndex].iframeStatus = 'inactive'
+		if (curentIndex === store.playersStore.length - 1) {
+			store.playersStore[0].iframeStatus = 'active'
+			store.mode = 'create'
+			return
+		}
+		store.playersStore[curentIndex + 1].iframeStatus = 'active'
+		store.playersStore[curentIndex + 1].playing = true
 	}
 
 	return (
 		<div>
 			{store.url ? (
-				store.players.map(
-					(item, index, array) =>
-						statusOptions[array[array.length - 1 - index].status].isShow && (
+				store.playersStore.map((item, index, array) => {
+					const curIndex = array.length - 1 - index
+					const playerStore = array[curIndex]
+
+					return (
+						statusOptions[array[array.length - 1 - index].iframeStatus].isShow && (
 							<ReactPlayer
-								key={array.length - 1 - index}
+								key={curIndex}
 								ref={playerRef}
-								playing={array[array.length - 1 - index].playing}
+								playing={playerStore.playing}
 								className={styles.player}
-								url={array[array.length - 1 - index].url}
+								url={playerStore.url}
+								muted={playerStore.muted}
 								width='100%'
 								height='100%'
 								// onPlay={onPlay.bind(null, i)}
-								onProgress={onProgress}
-								onStart={onStart.bind(null, array.length - 1 - index)}
-								onPause={onPause.bind(null, array.length - 1 - index)}
-								onEnded={onEnded.bind(null, array.length - 1 - index)}
-								// onReady={onReady.bind(null, i)}
-								// onBuffer={() => console.log('start')}
+								onProgress={onProgress.bind(null, curIndex)}
+								onStart={onStart.bind(null, curIndex)}
+								onPause={onPause.bind(null, curIndex)}
+								onEnded={onEnded.bind(null, curIndex)}
+								onReady={onReady.bind(null, curIndex)}
+								// onBuffer={onBuffer.bind(null, curIndex)}
 								// onBufferEnd={() => console.log('end')}
 								progressInterval={100}
 								controls={true}
@@ -95,7 +142,8 @@ function MultiPlayer(props: Props) {
 								}}
 							/>
 						)
-				)
+					)
+				})
 			) : (
 				<div className={styles.playerPlaceholder} />
 			)}
