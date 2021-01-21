@@ -1,15 +1,16 @@
 import React from 'react'
+import { Container, createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
+import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'
+import { LocalizationProvider } from '@material-ui/pickers'
+import { observer } from 'mobx-react'
+
 import './App.css'
 import PlayerPanel from './components/PlayerPanel'
 import CutsPanel from './components/CutsPanel'
 import Logo from './components/Logo'
 import UrlInput from './components/UrlInput'
 import styles from './App.module.css'
-import { Container, createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
-import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'
-import { LocalizationProvider } from '@material-ui/pickers'
 import store from './store'
-import { observer } from 'mobx-react'
 
 const theme = createMuiTheme({
 	palette: {

@@ -1,28 +1,21 @@
 import React from 'react'
-import store, { Cut } from '../store'
-import styles from './CutsPanel.module.sass'
 import { observer } from 'mobx-react'
-import CutItem from './CutItem'
-import { Button, Grid } from '@material-ui/core'
-import { formatTime } from '../utils/format-time'
-// import playerService from '../services/player-service'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined'
 import { useState } from 'react'
 import classNames from 'classnames'
+import { Button, Grid } from '@material-ui/core'
+
+import store, { Cut } from '../store'
+import styles from './CutsPanel.module.sass'
+import CutItem from './CutItem'
+import { formatTime } from '../utils/format-time'
 
 export function CutsPanel() {
 	const [showCopied, setShowCopied] = useState(false)
 
-	function initPlayAll() {
-		// playerService.playStory()
-		if (store.playersStore.length === 1) return
-
-		store.mode = 'playAll'
-		store.playersStore[0].iframeStatus = 'inactive'
-		for (let i = 1; i < store.playersStore.length; i += 1) {
-			store.playersStore[i].iframeStatus = 'preload'
-		}
+	function playAll() {
+		store.changeModeToPlayAll()
 	}
 
 	function onUrlCopy() {
@@ -51,7 +44,7 @@ export function CutsPanel() {
 						</Grid>
 					</Grid>
 					<Grid>
-						<Button variant='contained' disableElevation onClick={initPlayAll} fullWidth color='primary'>
+						<Button variant='contained' disableElevation onClick={playAll} fullWidth color='primary'>
 							Play all
 						</Button>
 					</Grid>

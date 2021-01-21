@@ -1,7 +1,7 @@
 import { observable, makeObservable, configure, computed, action } from 'mobx'
 
 import parse from 'url-parse'
-// import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player'
 
 configure({ enforceActions: 'never' })
 
@@ -10,14 +10,27 @@ export interface Cut {
 	endTime: number
 }
 
+export enum IframeStatusType {
+	Active = 'active',
+	Inactive = 'inactive',
+}
+
 export interface PlayerStore {
 	index: number
 	playing: boolean
-	iframeStatus: 'active' | 'inactive' | 'preload'
+	iframeStatus: IframeStatusType
 	muted: boolean
-	position?: number
 	url?: string
 	cut?: Cut
+	instance?: ReactPlayer
+}
+
+export enum Mode {
+	Create = 'create',
+	PlayOne = 'playOne',
+	PlayAll = 'playAll',
+	// PlayOnePreload = 'playOnePreload',
+	// PlayAllPreload = 'playAllPreload',
 }
 
 const url = parse(window.location.href, true)
@@ -41,14 +54,13 @@ class Store {
 	@observable playing = false
 	@observable url: string | null = queryUrl
 	@observable cuts: Cut[] = urlStory || []
-	@observable mode: 'create' | 'playOne' | 'playAll' = 'create'
+	@observable mode: Mode = Mode.Create
 	@observable playersStore: PlayerStore[] = [
 		{
 			index: 0,
 			playing: false,
 			url: this.url as string,
-			iframeStatus: 'active',
-			position: 0,
+			iframeStatus: IframeStatusType.Active,
 			muted: false,
 		},
 	]
@@ -73,23 +85,13 @@ class Store {
 		}, 0)
 	}
 
-	// @action
-	// addPlayer(index: number, player: ReactPlayer) {
-	// 	this.players[index] = {
-	// 		...this.players[index],
-	// 		player,
-	// 		// url: this.url as string,
-	// 	}
-	// }
-
 	@action
 	addCut(cut: Cut) {
-		// this.cuts.push(cut)
 		this.playersStore.push({
 			index: this.playersStore.length,
 			playing: false,
 			url: this.url as string,
-			iframeStatus: 'inactive',
+			iframeStatus: IframeStatusType.Inactive,
 			muted: false,
 			cut: {
 				startTime: cut.startTime,
@@ -111,10 +113,65 @@ class Store {
 			index: 0,
 			playing: false,
 			url,
-			iframeStatus: 'active',
-			position: 0,
+			iframeStatus: IframeStatusType.Active,
 			muted: false,
 		})
+
+		this.changeModeToCreate()
+	}
+
+	@action
+	changeModeToCreate() {
+		this.mode = Mode.Create
+		console.log('--> In CREATE mode')
+
+		for (let i = 0; i < this.playersStore.length; i += 1) {
+			if (i === 0) {
+				this.playersStore[i].iframeStatus = IframeStatusType.Active
+			} else {
+				this.playersStore[i].iframeStatus = IframeStatusType.Inactive
+			}
+		}
+
+		this.playersStore[0].playing = false
+	}
+
+	@action
+	changeModeToPlayOne(cutIndex: number) {
+		this.mode = Mode.PlayOne
+		console.log('--> In PLAYONE mode')
+
+		for (let i = 0; i < this.playersStore.length; i += 1) {
+			if (i === cutIndex) {
+				this.playersStore[i].iframeStatus = IframeStatusType.Active
+			} else {
+				this.playersStore[i].iframeStatus = IframeStatusType.Inactive
+			}
+		}
+
+		this.playersStore[cutIndex].playing = true
+	}
+
+	@action
+	changeModeToPlayAll() {
+		if (this.playersStore.length === 1) {
+			this.changeModeToCreate()
+			this.playersStore[0].playing = true
+			return
+		}
+
+		this.mode = Mode.PlayAll
+		console.log('--> In PLAYALL mode')
+
+		for (let i = 0; i < this.playersStore.length; i += 1) {
+			if (i === 0) {
+				this.playersStore[i].iframeStatus = IframeStatusType.Inactive
+			} else {
+				this.playersStore[i].iframeStatus = IframeStatusType.Active
+			}
+		}
+
+		this.playersStore[1].playing = true
 	}
 
 	constructor() {

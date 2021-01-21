@@ -29,8 +29,8 @@ export class PlayerService {
 	}
 
 	get player() {
-		if (!this.control) return 0;
-		return this.control.player;
+		if (!this.control) return 0
+		return this.control.player
 	}
 
 	setPlayer(player: PlayerControl | null) {
@@ -107,19 +107,18 @@ export class PlayerService {
 	}
 
 	preloadStory(cuts: Cut[] = store.cuts) {
-		const player = this.player;
+		const player = this.player
 
-		if (!player || !this.control) return;
+		if (!player || !this.control) return
 
-		cuts.forEach(cut => {
-			player.seekTo(cut.startTime);
-			this.control?.start();
-			setTimeout(() => this.control?.stop());
-
-		});
+		cuts.forEach((cut) => {
+			player.seekTo(cut.startTime)
+			this.control?.start()
+			setTimeout(() => this.control?.stop())
+		})
 	}
 }
 
-const playerService = new PlayerService();
+// const playerService = new PlayerService();
 
-export default playerService
+// export default playerService

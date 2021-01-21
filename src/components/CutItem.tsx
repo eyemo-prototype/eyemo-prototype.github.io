@@ -1,13 +1,13 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import store, { Cut } from '../store'
-import styles from './CutItem.module.sass'
 import { Button, Grid } from '@material-ui/core'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
+import CloseIcon from '@material-ui/icons/Close'
+
+import store, { Cut } from '../store'
+import styles from './CutItem.module.sass'
 import TimeInput from './TimeInput'
 import { formatTime } from '../utils/format-time'
-import CloseIcon from '@material-ui/icons/Close'
-// import playerService from '../services/player-service'
 
 interface Props {
 	cut: Cut
@@ -16,17 +16,7 @@ interface Props {
 
 function CutItem(props: Props) {
 	function play() {
-		// playerService.playStory([props.cut])
-		store.mode = 'playOne'
-
-		store.playersStore.map((item) => {
-			if (item.index === props.idx) {
-				store.playersStore[item.index].iframeStatus = 'active'
-				return
-			}
-			store.playersStore[item.index].iframeStatus = 'inactive'
-		})
-		// store.playersStore[props.idx].playing = true
+		store.changeModeToPlayOne(props.idx)
 	}
 
 	function remove() {
