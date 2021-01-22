@@ -32,15 +32,15 @@ function App() {
 						<Logo />
 					</Grid>
 					<Grid container wrap={'nowrap'}>
-						<Grid item lg className={styles.editingPanel}>
-							<UrlInput />
-							<CutsPanel />
-						</Grid>
 						{store.editMode && (
-							<Grid item className={styles.playerPanel} lg>
-								<PlayerPanel />
+							<Grid item lg className={styles.editingPanel}>
+								<UrlInput />
+								<CutsPanel />
 							</Grid>
 						)}
+						<Grid item className={styles.playerPanel} lg>
+							<PlayerPanel />
+						</Grid>
 					</Grid>
 				</Container>
 			</LocalizationProvider>

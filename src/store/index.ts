@@ -29,20 +29,28 @@ export enum Mode {
 	Create = 'create',
 	PlayOne = 'playOne',
 	PlayAll = 'playAll',
-	// PlayOnePreload = 'playOnePreload',
-	// PlayAllPreload = 'playAllPreload',
+	Show = 'show',
 }
 
 const url = parse(window.location.href, true)
-let urlStory: Cut[] | null = null
+let urlStory: PlayerStore[] | null = null
 
 if (url.query.story) {
 	const raw = decodeURIComponent(url.query.story)
-	urlStory = raw.split(',').map((cut) => {
-		const parts = cut.split(':')
+	urlStory = raw.split(',').map((player) => {
+		const parts = player.split('::')
+		const index = parseFloat(parts[0])
+
 		return {
-			startTime: parseFloat(parts[0]),
-			endTime: parseFloat(parts[1]),
+			index,
+			playing: false,
+			iframeStatus: IframeStatusType.Active,
+			muted: false,
+			url: parts[1],
+			cut: {
+				startTime: parseFloat(parts[2]),
+				endTime: parseFloat(parts[3]),
+			},
 		}
 	})
 }
@@ -51,11 +59,9 @@ const queryUrl = url.query.video ? decodeURIComponent(url.query.video) : null
 
 class Store {
 	@observable editMode = !queryUrl
-	@observable playing = false
 	@observable url: string | null = queryUrl
-	@observable cuts: Cut[] = urlStory || []
-	@observable mode: Mode = Mode.Create
-	@observable playersStore: PlayerStore[] = [
+	@observable mode: Mode = !queryUrl ? Mode.Create : Mode.Show
+	@observable playersStore: PlayerStore[] = urlStory || [
 		{
 			index: 0,
 			playing: false,
@@ -71,8 +77,7 @@ class Store {
 		return `${baseUrl}?video=${encodeURIComponent(this.url)}&story=${encodeURIComponent(
 			this.playersStore
 				.map((player, i) => {
-					if (i === 0) return
-					return [player.cut?.startTime, player.cut?.endTime].join(':')
+					return [player.index, player.url, player.cut?.startTime, player.cut?.endTime].join('::')
 				})
 				.join(',')
 		)}`

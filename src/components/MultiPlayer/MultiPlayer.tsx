@@ -38,6 +38,9 @@ function MultiPlayer(props: Props) {
 				break
 			case Mode.PlayAll:
 				break
+			case Mode.Show:
+				if (!cut || index === 0) return
+				startPreloadVideo(index, player)
 		}
 	}
 
@@ -60,6 +63,8 @@ function MultiPlayer(props: Props) {
 				if (isInCut(playerStore.cut, playerState.playedSeconds)) return
 				goToNextCut(index)
 				break
+			case Mode.Show:
+				break
 		}
 	}
 
@@ -79,6 +84,11 @@ function MultiPlayer(props: Props) {
 			case Mode.PlayOne:
 				break
 			case Mode.PlayAll:
+				break
+			case Mode.Show:
+				if (playerIndex === 0) return
+				store.playersStore[playerIndex].playing = false
+				store.playersStore[playerIndex].muted = false
 				break
 		}
 	}
