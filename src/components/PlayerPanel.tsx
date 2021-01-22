@@ -121,7 +121,7 @@ class PlayerPanel extends React.Component {
 		return (
 			<>
 				<Grid className={classNames('padded', styles.playerWrapper)}>
-					<MultiPlayer updatePosition={this.updatePosition} currentCut={cut} />
+					<MultiPlayer updatePosition={this.updatePosition} />
 				</Grid>
 				{store.editMode && store.url ? (
 					<>

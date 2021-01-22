@@ -7,7 +7,6 @@ import styles from './MultiPlayer.module.sass'
 
 interface Props {
 	updatePosition: (playedSeconds: number) => void
-	currentCut: Cut | null
 }
 
 const statusOptions: any = {
