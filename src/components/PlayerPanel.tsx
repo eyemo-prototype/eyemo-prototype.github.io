@@ -3,7 +3,7 @@ import { Button, Grid } from '@material-ui/core'
 import classNames from 'classnames'
 import { observer } from 'mobx-react'
 
-import store, { Cut } from '../store'
+import store, { Cut, Mode } from '../store'
 import { formatTime } from '../utils/format-time'
 import styles from './PlayerPanel.module.sass'
 import TimeInput from './TimeInput'
@@ -30,15 +30,19 @@ class PlayerPanel extends React.Component {
 
 	changeStart = (time: number) => {
 		this.setState({
-			startTime: time,
-			endTime: Math.max(this.state.cut!.endTime, time + 1),
+			cut: {
+				startTime: time,
+				endTime: Math.max(this.state.cut!.endTime, time + 1),
+			},
 		})
 	}
 
 	changeEnd = (time: number) => {
 		this.setState({
-			startTime: Math.min(this.state.cut!.startTime, time - 1),
-			endTime: time,
+			cut: {
+				startTime: Math.min(this.state.cut!.startTime, time - 1),
+				endTime: time,
+			},
 		})
 	}
 
@@ -46,8 +50,23 @@ class PlayerPanel extends React.Component {
 		const { cut } = this.state
 
 		if (!cut) return
-		// 	store.activePlayer?.seekTo(cut.startTime)
-		// 	store.activePlayer.
+
+		if (store.mode !== Mode.Create) store.changeModeToCreate()
+
+		store.playersStore[0].instance?.seekTo(cut.startTime)
+		store.playersStore[0].playing = true
+
+		const checkCut = () => {
+			const { cut } = this.state
+			if (!cut) return
+
+			const position = store.playersStore[0].instance ? store.playersStore[0].instance?.getCurrentTime() : 0
+			if (position >= cut?.startTime && position <= cut?.endTime) return
+			clearInterval(intervalId)
+			store.playersStore[0].playing = false
+		}
+
+		const intervalId = setInterval(checkCut, 100)
 	}
 
 	clear = () => {

@@ -42,7 +42,7 @@ function MultiPlayer(props: Props) {
 	}
 
 	function onProgress(index: number, playerState: any) {
-		console.log(`Player ${index} onProgress in ${playerState.playedSeconds} seconds`)
+		// console.log(`Player ${index} onProgress in ${playerState.playedSeconds} seconds`)
 
 		updatePosition(playerState.playedSeconds)
 
@@ -127,7 +127,9 @@ function MultiPlayer(props: Props) {
 	function goToNextCut(playerIndex: number) {
 		stopPlayOne(playerIndex)
 
-		if (playerIndex === store.playersStore.length - 1) {
+		const isLastCut = playerIndex === store.playersStore.length - 1
+
+		if (isLastCut) {
 			console.log('Last cut is end')
 			store.changeModeToCreate()
 		} else {
