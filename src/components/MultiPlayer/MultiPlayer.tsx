@@ -44,11 +44,12 @@ function MultiPlayer(props: Props) {
 	}
 
 	function onProgress(index: number, playerState: any) {
-		console.log(`Player ${index} onProgress in ${playerState.playedSeconds} seconds`)
-
 		updatePosition(playerState.playedSeconds)
 
 		const playerStore = store.playersStore[index]
+		console.log(
+			`Player ${index} onProgress in ${playerState.playedSeconds} sec (s: ${playerStore.cut?.startTime} e: ${playerStore.cut?.endTime})`
+		)
 
 		switch (store.mode) {
 			case Mode.Create:
