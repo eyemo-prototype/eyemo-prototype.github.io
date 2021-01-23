@@ -20,7 +20,7 @@ const statusOptions: any = {
 
 function MultiPlayer(props: Props) {
 	const { updatePosition } = props
-	const playerRef = React.createRef<ReactPlayer>()
+	// const playerRef = React.createRef<ReactPlayer>()
 
 	function onReady(index: number, player: ReactPlayer) {
 		console.log(`Player ${index} onReady`)
@@ -44,7 +44,7 @@ function MultiPlayer(props: Props) {
 	}
 
 	function onProgress(index: number, playerState: any) {
-		// console.log(`Player ${index} onProgress in ${playerState.playedSeconds} seconds`)
+		console.log(`Player ${index} onProgress in ${playerState.playedSeconds} seconds`)
 
 		updatePosition(playerState.playedSeconds)
 
@@ -88,6 +88,10 @@ function MultiPlayer(props: Props) {
 				if (playerIndex === 0) return
 				store.playersStore[playerIndex].playing = false
 				store.playersStore[playerIndex].muted = false
+
+				const cut = store.playersStore[playerIndex].cut
+				const startTime = cut ? cut.startTime : 0
+				store.playersStore[playerIndex].instance?.seekTo(startTime)
 				break
 		}
 	}
@@ -119,11 +123,7 @@ function MultiPlayer(props: Props) {
 	function startPreloadVideo(index: number, player: ReactPlayer) {
 		console.log(`Player ${index} in preload`)
 
-		const cut = store.playersStore[index].cut
-		const startTime = cut ? cut.startTime : 0
-
 		store.playersStore[index].muted = true
-		player.seekTo(startTime)
 		store.playersStore[index].playing = true
 	}
 
@@ -166,9 +166,9 @@ function MultiPlayer(props: Props) {
 					const isShow = statusOptions[array[array.length - 1 - index].iframeStatus].isShow
 
 					return (
-						<div key={curIndex} style={{ visibility: isShow ? 'visible' : 'hidden' }}>
+						<div key={playerStore.id} style={{ visibility: isShow ? 'visible' : 'hidden' }}>
 							<ReactPlayer
-								ref={playerRef}
+								// ref={playerRef}
 								playing={playerStore.playing}
 								className={styles.player}
 								url={playerStore.url}

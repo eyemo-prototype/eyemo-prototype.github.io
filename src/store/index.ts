@@ -1,4 +1,5 @@
 import { observable, makeObservable, configure, computed, action } from 'mobx'
+import { v4 as uuid } from 'uuid'
 
 import parse from 'url-parse'
 import ReactPlayer from 'react-player'
@@ -16,6 +17,7 @@ export enum IframeStatusType {
 }
 
 export interface PlayerStore {
+	id: string
 	index: number
 	playing: boolean
 	iframeStatus: IframeStatusType
@@ -39,17 +41,17 @@ if (url.query.story) {
 	const raw = decodeURIComponent(url.query.story)
 	urlStory = raw.split(',').map((player) => {
 		const parts = player.split('::')
-		const index = parseFloat(parts[0])
 
 		return {
-			index,
+			id: parts[0],
+			index: parseFloat(parts[1]),
 			playing: false,
 			iframeStatus: IframeStatusType.Active,
 			muted: false,
-			url: parts[1],
+			url: parts[2],
 			cut: {
-				startTime: parseFloat(parts[2]),
-				endTime: parseFloat(parts[3]),
+				startTime: parseFloat(parts[3]),
+				endTime: parseFloat(parts[4]),
 			},
 		}
 	})
@@ -63,6 +65,7 @@ class Store {
 	@observable mode: Mode = !queryUrl ? Mode.Create : Mode.Show
 	@observable playersStore: PlayerStore[] = urlStory || [
 		{
+			id: uuid(),
 			index: 0,
 			playing: false,
 			url: this.url as string,
@@ -77,7 +80,7 @@ class Store {
 		return `${baseUrl}?video=${encodeURIComponent(this.url)}&story=${encodeURIComponent(
 			this.playersStore
 				.map((player, i) => {
-					return [player.index, player.url, player.cut?.startTime, player.cut?.endTime].join('::')
+					return [player.id, player.index, player.url, player.cut?.startTime, player.cut?.endTime].join('::')
 				})
 				.join(',')
 		)}`
@@ -93,6 +96,7 @@ class Store {
 	@action
 	addCut(cut: Cut) {
 		this.playersStore.push({
+			id: uuid(),
 			index: this.playersStore.length,
 			playing: false,
 			url: this.url as string,
@@ -106,8 +110,13 @@ class Store {
 	}
 
 	@action
-	removeCut(index: number) {
-		this.playersStore = this.playersStore.filter((item) => item.index !== index)
+	removeCut(cutIndex: number) {
+		this.playersStore = this.playersStore
+			.filter((item) => item.index !== cutIndex)
+			.map((item, index) => {
+				item.index = index
+				return item
+			})
 	}
 
 	@action
@@ -115,6 +124,7 @@ class Store {
 		this.url = url
 		this.playersStore = []
 		this.playersStore.push({
+			id: uuid(),
 			index: 0,
 			playing: false,
 			url,
