@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.0ed45ce7.chunk.css",
-    "main.js": "/static/js/main.6263a208.chunk.js",
+    "main.css": "/static/css/main.96b56627.chunk.css",
+    "main.js": "/static/js/main.6067a745.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.09395c31.js",
-    "static/js/2.5d0ef406.chunk.js": "/static/js/2.5d0ef406.chunk.js",
+    "static/js/2.44111ec6.chunk.js": "/static/js/2.44111ec6.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.5d0ef406.chunk.js.LICENSE.txt": "/static/js/2.5d0ef406.chunk.js.LICENSE.txt",
+    "static/js/2.44111ec6.chunk.js.LICENSE.txt": "/static/js/2.44111ec6.chunk.js.LICENSE.txt",
     "static/media/App.module.scss": "/static/media/Gilroy-Regular.f6c9931f.woff2",
     "static/media/arrow.8371470d.svg": "/static/media/arrow.8371470d.svg",
     "static/media/audio.18d70808.svg": "/static/media/audio.18d70808.svg",
@@ -15,6 +15,7 @@
     "static/media/frames.7fe1096a.svg": "/static/media/frames.7fe1096a.svg",
     "static/media/gif.cd91ed47.svg": "/static/media/gif.cd91ed47.svg",
     "static/media/images.c3d542ed.svg": "/static/media/images.c3d542ed.svg",
+    "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
     "static/media/playIcon.737e8ec2.svg": "/static/media/playIcon.737e8ec2.svg",
     "static/media/sticker.689907e4.svg": "/static/media/sticker.689907e4.svg",
     "static/media/text.0504dd60.svg": "/static/media/text.0504dd60.svg",
@@ -22,8 +23,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.09395c31.js",
-    "static/js/2.5d0ef406.chunk.js",
-    "static/css/main.0ed45ce7.chunk.css",
-    "static/js/main.6263a208.chunk.js"
+    "static/js/2.44111ec6.chunk.js",
+    "static/css/main.96b56627.chunk.css",
+    "static/js/main.6067a745.chunk.js"
   ]
 }
