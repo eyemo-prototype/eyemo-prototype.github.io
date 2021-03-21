@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.b20c95f0.chunk.css",
-    "main.js": "/static/js/main.7fd9467c.chunk.js",
+    "main.css": "/static/css/main.a9776391.chunk.css",
+    "main.js": "/static/js/main.c7300951.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.441abb78.chunk.js": "/static/js/2.441abb78.chunk.js",
+    "static/js/2.13a514a2.chunk.js": "/static/js/2.13a514a2.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.441abb78.chunk.js.LICENSE.txt": "/static/js/2.441abb78.chunk.js.LICENSE.txt",
+    "static/js/2.13a514a2.chunk.js.LICENSE.txt": "/static/js/2.13a514a2.chunk.js.LICENSE.txt",
     "static/media/App.module.scss": "/static/media/Gilroy-Regular.f6c9931f.woff2",
     "static/media/actionIcon.e6f6af32.svg": "/static/media/actionIcon.e6f6af32.svg",
+    "static/media/arrow.8371470d.svg": "/static/media/arrow.8371470d.svg",
+    "static/media/arrow.a4af7684.svg": "/static/media/arrow.a4af7684.svg",
     "static/media/audio.18d70808.svg": "/static/media/audio.18d70808.svg",
     "static/media/close.b731002b.svg": "/static/media/close.b731002b.svg",
     "static/media/close.f88f3a6a.svg": "/static/media/close.f88f3a6a.svg",
@@ -29,8 +31,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.441abb78.chunk.js",
-    "static/css/main.b20c95f0.chunk.css",
-    "static/js/main.7fd9467c.chunk.js"
+    "static/js/2.13a514a2.chunk.js",
+    "static/css/main.a9776391.chunk.css",
+    "static/js/main.c7300951.chunk.js"
   ]
 }
