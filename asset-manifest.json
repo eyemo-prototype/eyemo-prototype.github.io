@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.5677c8b8.chunk.css",
-    "main.js": "/static/js/main.db293cff.chunk.js",
+    "main.css": "/static/css/main.a69c28a5.chunk.css",
+    "main.js": "/static/js/main.84f95b92.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.f5645259.chunk.js": "/static/js/2.f5645259.chunk.js",
+    "static/js/2.59ddee23.chunk.js": "/static/js/2.59ddee23.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.f5645259.chunk.js.LICENSE.txt": "/static/js/2.f5645259.chunk.js.LICENSE.txt",
+    "static/js/2.59ddee23.chunk.js.LICENSE.txt": "/static/js/2.59ddee23.chunk.js.LICENSE.txt",
     "static/media/App.module.scss": "/static/media/Gilroy-Regular.f6c9931f.woff2",
+    "static/media/Youtube.99625859.svg": "/static/media/Youtube.99625859.svg",
     "static/media/actionIcon.120e19fc.svg": "/static/media/actionIcon.120e19fc.svg",
     "static/media/actionIconActive.e6f6af32.svg": "/static/media/actionIconActive.e6f6af32.svg",
     "static/media/applyBtn.51086de1.svg": "/static/media/applyBtn.51086de1.svg",
@@ -32,8 +33,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.f5645259.chunk.js",
-    "static/css/main.5677c8b8.chunk.css",
-    "static/js/main.db293cff.chunk.js"
+    "static/js/2.59ddee23.chunk.js",
+    "static/css/main.a69c28a5.chunk.css",
+    "static/js/main.84f95b92.chunk.js"
   ]
 }
