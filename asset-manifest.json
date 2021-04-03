@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.64af72a6.chunk.css",
-    "main.js": "/static/js/main.d3c297c7.chunk.js",
+    "main.css": "/static/css/main.ca0bdfaf.chunk.css",
+    "main.js": "/static/js/main.b0fb262c.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.5d75cbc0.chunk.js": "/static/js/2.5d75cbc0.chunk.js",
+    "static/js/2.4eb26e00.chunk.js": "/static/js/2.4eb26e00.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.5d75cbc0.chunk.js.LICENSE.txt": "/static/js/2.5d75cbc0.chunk.js.LICENSE.txt",
-    "static/media/App.module.scss": "/static/media/Gilroy-Regular.f6c9931f.woff2",
+    "static/js/2.4eb26e00.chunk.js.LICENSE.txt": "/static/js/2.4eb26e00.chunk.js.LICENSE.txt",
+    "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
+    "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
+    "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
+    "static/media/Link.7cb58b31.svg": "/static/media/Link.7cb58b31.svg",
+    "static/media/TikTok.68bfb298.svg": "/static/media/TikTok.68bfb298.svg",
+    "static/media/Youtube.306db314.svg": "/static/media/Youtube.306db314.svg",
     "static/media/Youtube.99625859.svg": "/static/media/Youtube.99625859.svg",
     "static/media/actionIcon.120e19fc.svg": "/static/media/actionIcon.120e19fc.svg",
     "static/media/actionIconActive.e6f6af32.svg": "/static/media/actionIconActive.e6f6af32.svg",
+    "static/media/activeStatus.efaf463f.svg": "/static/media/activeStatus.efaf463f.svg",
+    "static/media/addIcon.f9e36598.svg": "/static/media/addIcon.f9e36598.svg",
     "static/media/applyBtn.51086de1.svg": "/static/media/applyBtn.51086de1.svg",
     "static/media/arrow.a4af7684.svg": "/static/media/arrow.a4af7684.svg",
     "static/media/backArrow.905a15df.svg": "/static/media/backArrow.905a15df.svg",
@@ -25,18 +32,20 @@
     "static/media/gif.cd91ed47.svg": "/static/media/gif.cd91ed47.svg",
     "static/media/mic-white.1fcdc1a6.svg": "/static/media/mic-white.1fcdc1a6.svg",
     "static/media/mic.7674c511.svg": "/static/media/mic.7674c511.svg",
+    "static/media/mock.a377b9bb.png": "/static/media/mock.a377b9bb.png",
     "static/media/mouse.bd54b72f.svg": "/static/media/mouse.bd54b72f.svg",
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
     "static/media/playIcon.737e8ec2.svg": "/static/media/playIcon.737e8ec2.svg",
     "static/media/sticker.689907e4.svg": "/static/media/sticker.689907e4.svg",
     "static/media/text.0504dd60.svg": "/static/media/text.0504dd60.svg",
     "static/media/transitions.876ac694.svg": "/static/media/transitions.876ac694.svg",
+    "static/media/user.e027a384.png": "/static/media/user.e027a384.png",
     "static/media/userIcon.401c41c6.svg": "/static/media/userIcon.401c41c6.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.5d75cbc0.chunk.js",
-    "static/css/main.64af72a6.chunk.css",
-    "static/js/main.d3c297c7.chunk.js"
+    "static/js/2.4eb26e00.chunk.js",
+    "static/css/main.ca0bdfaf.chunk.css",
+    "static/js/main.b0fb262c.chunk.js"
   ]
 }
