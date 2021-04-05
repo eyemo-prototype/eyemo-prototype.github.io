@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.e2778b3f.chunk.css",
-    "main.js": "/static/js/main.eec4fe59.chunk.js",
+    "main.css": "/static/css/main.52a6e65b.chunk.css",
+    "main.js": "/static/js/main.3fd5a421.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.577af9f5.chunk.js": "/static/js/2.577af9f5.chunk.js",
+    "static/js/2.8c26de64.chunk.js": "/static/js/2.8c26de64.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.577af9f5.chunk.js.LICENSE.txt": "/static/js/2.577af9f5.chunk.js.LICENSE.txt",
+    "static/js/2.8c26de64.chunk.js.LICENSE.txt": "/static/js/2.8c26de64.chunk.js.LICENSE.txt",
     "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
     "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -34,6 +34,7 @@
     "static/media/mic.7674c511.svg": "/static/media/mic.7674c511.svg",
     "static/media/mock.a377b9bb.png": "/static/media/mock.a377b9bb.png",
     "static/media/mouse.bd54b72f.svg": "/static/media/mouse.bd54b72f.svg",
+    "static/media/pause.46fc6d47.svg": "/static/media/pause.46fc6d47.svg",
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
     "static/media/playIcon.737e8ec2.svg": "/static/media/playIcon.737e8ec2.svg",
     "static/media/sticker.689907e4.svg": "/static/media/sticker.689907e4.svg",
@@ -44,8 +45,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.577af9f5.chunk.js",
-    "static/css/main.e2778b3f.chunk.css",
-    "static/js/main.eec4fe59.chunk.js"
+    "static/js/2.8c26de64.chunk.js",
+    "static/css/main.52a6e65b.chunk.css",
+    "static/js/main.3fd5a421.chunk.js"
   ]
 }
