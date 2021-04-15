@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.ae4eff1e.chunk.css",
-    "main.js": "/static/js/main.a975ec0a.chunk.js",
+    "main.css": "/static/css/main.9be7d21c.chunk.css",
+    "main.js": "/static/js/main.05e15c23.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.bda1629a.chunk.js": "/static/js/2.bda1629a.chunk.js",
+    "static/js/2.be2d02d8.chunk.js": "/static/js/2.be2d02d8.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.bda1629a.chunk.js.LICENSE.txt": "/static/js/2.bda1629a.chunk.js.LICENSE.txt",
+    "static/js/2.be2d02d8.chunk.js.LICENSE.txt": "/static/js/2.be2d02d8.chunk.js.LICENSE.txt",
     "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
     "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -37,6 +37,7 @@
     "static/media/pause.46fc6d47.svg": "/static/media/pause.46fc6d47.svg",
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
     "static/media/playIcon.737e8ec2.svg": "/static/media/playIcon.737e8ec2.svg",
+    "static/media/plus.19f5e4f7.svg": "/static/media/plus.19f5e4f7.svg",
     "static/media/sticker.689907e4.svg": "/static/media/sticker.689907e4.svg",
     "static/media/text.0504dd60.svg": "/static/media/text.0504dd60.svg",
     "static/media/transitions.876ac694.svg": "/static/media/transitions.876ac694.svg",
@@ -45,8 +46,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.bda1629a.chunk.js",
-    "static/css/main.ae4eff1e.chunk.css",
-    "static/js/main.a975ec0a.chunk.js"
+    "static/js/2.be2d02d8.chunk.js",
+    "static/css/main.9be7d21c.chunk.css",
+    "static/js/main.05e15c23.chunk.js"
   ]
 }
