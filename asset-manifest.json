@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.0c3dc92f.chunk.css",
-    "main.js": "/static/js/main.e3e0d8bc.chunk.js",
+    "main.js": "/static/js/main.8b29891d.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.917271be.chunk.js": "/static/js/2.917271be.chunk.js",
+    "static/js/2.d74b5fb4.chunk.js": "/static/js/2.d74b5fb4.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.917271be.chunk.js.LICENSE.txt": "/static/js/2.917271be.chunk.js.LICENSE.txt",
+    "static/js/2.d74b5fb4.chunk.js.LICENSE.txt": "/static/js/2.d74b5fb4.chunk.js.LICENSE.txt",
     "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
     "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -49,8 +49,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.917271be.chunk.js",
+    "static/js/2.d74b5fb4.chunk.js",
     "static/css/main.0c3dc92f.chunk.css",
-    "static/js/main.e3e0d8bc.chunk.js"
+    "static/js/main.8b29891d.chunk.js"
   ]
 }
