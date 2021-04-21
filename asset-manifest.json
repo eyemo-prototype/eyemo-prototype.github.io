@@ -1,18 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.9583f839.chunk.css",
-    "main.js": "/static/js/main.9037e212.chunk.js",
+    "main.js": "/static/js/main.b54396c8.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.b0f0e864.chunk.js": "/static/js/2.b0f0e864.chunk.js",
+    "static/js/2.315242a5.chunk.js": "/static/js/2.315242a5.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.b0f0e864.chunk.js.LICENSE.txt": "/static/js/2.b0f0e864.chunk.js.LICENSE.txt",
+    "static/js/2.315242a5.chunk.js.LICENSE.txt": "/static/js/2.315242a5.chunk.js.LICENSE.txt",
     "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
     "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
     "static/media/Link.7cb58b31.svg": "/static/media/Link.7cb58b31.svg",
     "static/media/TikTok.68bfb298.svg": "/static/media/TikTok.68bfb298.svg",
     "static/media/Youtube.306db314.svg": "/static/media/Youtube.306db314.svg",
-    "static/media/Youtube.99625859.svg": "/static/media/Youtube.99625859.svg",
     "static/media/actionIcon.120e19fc.svg": "/static/media/actionIcon.120e19fc.svg",
     "static/media/actionIconActive.e6f6af32.svg": "/static/media/actionIconActive.e6f6af32.svg",
     "static/media/activeStatus.efaf463f.svg": "/static/media/activeStatus.efaf463f.svg",
@@ -49,8 +48,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.b0f0e864.chunk.js",
+    "static/js/2.315242a5.chunk.js",
     "static/css/main.9583f839.chunk.css",
-    "static/js/main.9037e212.chunk.js"
+    "static/js/main.b54396c8.chunk.js"
   ]
 }
