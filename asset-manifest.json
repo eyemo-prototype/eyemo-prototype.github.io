@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.7c5b7967.chunk.css",
-    "main.js": "/static/js/main.3a85f416.chunk.js",
+    "main.css": "/static/css/main.b26ea750.chunk.css",
+    "main.js": "/static/js/main.424a0bf9.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.a2bdac58.chunk.js": "/static/js/2.a2bdac58.chunk.js",
+    "static/js/2.d4426caa.chunk.js": "/static/js/2.d4426caa.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.a2bdac58.chunk.js.LICENSE.txt": "/static/js/2.a2bdac58.chunk.js.LICENSE.txt",
+    "static/js/2.d4426caa.chunk.js.LICENSE.txt": "/static/js/2.d4426caa.chunk.js.LICENSE.txt",
     "static/media/Discord.5e927e26.svg": "/static/media/Discord.5e927e26.svg",
     "static/media/Facebook.828a81ba.svg": "/static/media/Facebook.828a81ba.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -28,12 +28,15 @@
     "static/media/defaultImage.747489c0.svg": "/static/media/defaultImage.747489c0.svg",
     "static/media/delete.0b5bed2b.svg": "/static/media/delete.0b5bed2b.svg",
     "static/media/deleteBtn.289b9a98.svg": "/static/media/deleteBtn.289b9a98.svg",
+    "static/media/discord.e565602b.svg": "/static/media/discord.e565602b.svg",
     "static/media/duplicate.9ce441d6.svg": "/static/media/duplicate.9ce441d6.svg",
     "static/media/edit.7081d9c8.svg": "/static/media/edit.7081d9c8.svg",
     "static/media/exit.ad75c228.svg": "/static/media/exit.ad75c228.svg",
+    "static/media/facebook.a4534577.svg": "/static/media/facebook.a4534577.svg",
     "static/media/forwardArrow.bba82a55.svg": "/static/media/forwardArrow.bba82a55.svg",
     "static/media/frames.7fe1096a.svg": "/static/media/frames.7fe1096a.svg",
     "static/media/gif.cd91ed47.svg": "/static/media/gif.cd91ed47.svg",
+    "static/media/link.32011d42.svg": "/static/media/link.32011d42.svg",
     "static/media/logo.79d236b0.svg": "/static/media/logo.79d236b0.svg",
     "static/media/mic-white.1fcdc1a6.svg": "/static/media/mic-white.1fcdc1a6.svg",
     "static/media/mic.7674c511.svg": "/static/media/mic.7674c511.svg",
@@ -44,18 +47,22 @@
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
     "static/media/playIcon.737e8ec2.svg": "/static/media/playIcon.737e8ec2.svg",
     "static/media/plus.19f5e4f7.svg": "/static/media/plus.19f5e4f7.svg",
+    "static/media/reddit.fb860b9e.svg": "/static/media/reddit.fb860b9e.svg",
     "static/media/settings.04a9772b.svg": "/static/media/settings.04a9772b.svg",
     "static/media/share.281e367b.svg": "/static/media/share.281e367b.svg",
     "static/media/sticker.689907e4.svg": "/static/media/sticker.689907e4.svg",
+    "static/media/telegram.dcfd0847.svg": "/static/media/telegram.dcfd0847.svg",
     "static/media/text.0504dd60.svg": "/static/media/text.0504dd60.svg",
+    "static/media/tiktok.1fcbda1a.svg": "/static/media/tiktok.1fcbda1a.svg",
     "static/media/transitions.876ac694.svg": "/static/media/transitions.876ac694.svg",
     "static/media/user.e027a384.png": "/static/media/user.e027a384.png",
-    "static/media/userIcon.401c41c6.svg": "/static/media/userIcon.401c41c6.svg"
+    "static/media/userIcon.401c41c6.svg": "/static/media/userIcon.401c41c6.svg",
+    "static/media/youTube.e96ec2e0.svg": "/static/media/youTube.e96ec2e0.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.a2bdac58.chunk.js",
-    "static/css/main.7c5b7967.chunk.css",
-    "static/js/main.3a85f416.chunk.js"
+    "static/js/2.d4426caa.chunk.js",
+    "static/css/main.b26ea750.chunk.css",
+    "static/js/main.424a0bf9.chunk.js"
   ]
 }
