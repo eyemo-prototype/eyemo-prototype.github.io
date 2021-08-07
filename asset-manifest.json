@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.be9003eb.chunk.css",
-    "main.js": "/static/js/main.fd4b16a8.chunk.js",
+    "main.css": "/static/css/main.0d9294c5.chunk.css",
+    "main.js": "/static/js/main.b7babf4b.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.f261eb6f.chunk.js": "/static/js/2.f261eb6f.chunk.js",
+    "static/js/2.720c22af.chunk.js": "/static/js/2.720c22af.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.f261eb6f.chunk.js.LICENSE.txt": "/static/js/2.f261eb6f.chunk.js.LICENSE.txt",
+    "static/js/2.720c22af.chunk.js.LICENSE.txt": "/static/js/2.720c22af.chunk.js.LICENSE.txt",
     "static/media/Discord.53f71c3b.svg": "/static/media/Discord.53f71c3b.svg",
     "static/media/Facebook.65c220e8.svg": "/static/media/Facebook.65c220e8.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -18,7 +18,6 @@
     "static/media/Twitter.96eb61d4.svg": "/static/media/Twitter.96eb61d4.svg",
     "static/media/YouTube.9d663bf7.svg": "/static/media/YouTube.9d663bf7.svg",
     "static/media/addIcon.f9e36598.svg": "/static/media/addIcon.f9e36598.svg",
-    "static/media/applyBtn.51086de1.svg": "/static/media/applyBtn.51086de1.svg",
     "static/media/arrow.a4af7684.svg": "/static/media/arrow.a4af7684.svg",
     "static/media/audio.d0b4ab7d.svg": "/static/media/audio.d0b4ab7d.svg",
     "static/media/backArrow.905a15df.svg": "/static/media/backArrow.905a15df.svg",
@@ -35,7 +34,6 @@
     "static/media/defaultImage.747489c0.svg": "/static/media/defaultImage.747489c0.svg",
     "static/media/defaultPreview.4d64d370.png": "/static/media/defaultPreview.4d64d370.png",
     "static/media/delete.ea41e11b.svg": "/static/media/delete.ea41e11b.svg",
-    "static/media/deleteBtn.289b9a98.svg": "/static/media/deleteBtn.289b9a98.svg",
     "static/media/deleteIcon.a4d74c72.svg": "/static/media/deleteIcon.a4d74c72.svg",
     "static/media/effect.af40ea75.svg": "/static/media/effect.af40ea75.svg",
     "static/media/exit.87219332.svg": "/static/media/exit.87219332.svg",
@@ -84,8 +82,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.f261eb6f.chunk.js",
-    "static/css/main.be9003eb.chunk.css",
-    "static/js/main.fd4b16a8.chunk.js"
+    "static/js/2.720c22af.chunk.js",
+    "static/css/main.0d9294c5.chunk.css",
+    "static/js/main.b7babf4b.chunk.js"
   ]
 }
