@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.c335005c.chunk.css",
-    "main.js": "/static/js/main.722c71a9.chunk.js",
+    "main.css": "/static/css/main.8dbcdd53.chunk.css",
+    "main.js": "/static/js/main.888f924c.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.c40d06ce.chunk.js": "/static/js/2.c40d06ce.chunk.js",
+    "static/js/2.89a802eb.chunk.js": "/static/js/2.89a802eb.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.c40d06ce.chunk.js.LICENSE.txt": "/static/js/2.c40d06ce.chunk.js.LICENSE.txt",
+    "static/js/2.89a802eb.chunk.js.LICENSE.txt": "/static/js/2.89a802eb.chunk.js.LICENSE.txt",
     "static/media/Discord.53f71c3b.svg": "/static/media/Discord.53f71c3b.svg",
     "static/media/Facebook.65c220e8.svg": "/static/media/Facebook.65c220e8.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -56,7 +56,9 @@
     "static/media/mockImage.2132a559.png": "/static/media/mockImage.2132a559.png",
     "static/media/more.d677cbdc.svg": "/static/media/more.d677cbdc.svg",
     "static/media/mouse.bd54b72f.svg": "/static/media/mouse.bd54b72f.svg",
+    "static/media/music.f62e1252.svg": "/static/media/music.f62e1252.svg",
     "static/media/next.8d917d72.svg": "/static/media/next.8d917d72.svg",
+    "static/media/note.60ff6609.svg": "/static/media/note.60ff6609.svg",
     "static/media/pause.46fc6d47.svg": "/static/media/pause.46fc6d47.svg",
     "static/media/pauseIcon.5d42ceef.svg": "/static/media/pauseIcon.5d42ceef.svg",
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
@@ -86,8 +88,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.c40d06ce.chunk.js",
-    "static/css/main.c335005c.chunk.css",
-    "static/js/main.722c71a9.chunk.js"
+    "static/js/2.89a802eb.chunk.js",
+    "static/css/main.8dbcdd53.chunk.css",
+    "static/js/main.888f924c.chunk.js"
   ]
 }
