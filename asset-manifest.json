@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.6cc69fea.chunk.css",
-    "main.js": "/static/js/main.49458c02.chunk.js",
+    "main.css": "/static/css/main.bb586e16.chunk.css",
+    "main.js": "/static/js/main.5d18b39a.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.d11a7efa.js",
-    "static/js/2.732bd22d.chunk.js": "/static/js/2.732bd22d.chunk.js",
+    "static/js/2.23eb6dde.chunk.js": "/static/js/2.23eb6dde.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.732bd22d.chunk.js.LICENSE.txt": "/static/js/2.732bd22d.chunk.js.LICENSE.txt",
+    "static/js/2.23eb6dde.chunk.js.LICENSE.txt": "/static/js/2.23eb6dde.chunk.js.LICENSE.txt",
     "static/media/Discord.53f71c3b.svg": "/static/media/Discord.53f71c3b.svg",
     "static/media/Facebook.65c220e8.svg": "/static/media/Facebook.65c220e8.svg",
     "static/media/App.module.scss": "/static/media/Lato-Regular.9919edff.ttf",
@@ -50,6 +50,7 @@
     "static/media/hotkeys.98603b70.svg": "/static/media/hotkeys.98603b70.svg",
     "static/media/link.32011d42.svg": "/static/media/link.32011d42.svg",
     "static/media/link.3c262157.svg": "/static/media/link.3c262157.svg",
+    "static/media/logo.7966063b.svg": "/static/media/logo.7966063b.svg",
     "static/media/logo.79d236b0.svg": "/static/media/logo.79d236b0.svg",
     "static/media/logoEthereum.28d16009.svg": "/static/media/logoEthereum.28d16009.svg",
     "static/media/minus.dcbc8c85.svg": "/static/media/minus.dcbc8c85.svg",
@@ -57,8 +58,10 @@
     "static/media/mockImage.2132a559.png": "/static/media/mockImage.2132a559.png",
     "static/media/more.d677cbdc.svg": "/static/media/more.d677cbdc.svg",
     "static/media/mouse.bd54b72f.svg": "/static/media/mouse.bd54b72f.svg",
+    "static/media/music.f62e1252.svg": "/static/media/music.f62e1252.svg",
     "static/media/next.8d917d72.svg": "/static/media/next.8d917d72.svg",
     "static/media/next.de959651.svg": "/static/media/next.de959651.svg",
+    "static/media/note.60ff6609.svg": "/static/media/note.60ff6609.svg",
     "static/media/pause.46fc6d47.svg": "/static/media/pause.46fc6d47.svg",
     "static/media/pauseIcon.5d42ceef.svg": "/static/media/pauseIcon.5d42ceef.svg",
     "static/media/play.a44af37e.svg": "/static/media/play.a44af37e.svg",
@@ -90,8 +93,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d11a7efa.js",
-    "static/js/2.732bd22d.chunk.js",
-    "static/css/main.6cc69fea.chunk.css",
-    "static/js/main.49458c02.chunk.js"
+    "static/js/2.23eb6dde.chunk.js",
+    "static/css/main.bb586e16.chunk.css",
+    "static/js/main.5d18b39a.chunk.js"
   ]
 }
